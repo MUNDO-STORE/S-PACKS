@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Store Packs - Packs para DJs e Atualização de Pendrive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        #video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(20, 0, 40, 0.7) 100%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6a11cb;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            color: #6a11cb;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .highlight {
+            color: #6a11cb;
+            font-weight: bold;
+        }
+        
+        .telegram-note {
+            background-color: rgba(0, 136, 204, 0.2);
+            border-left: 4px solid #0088cc;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .telegram-note i {
+            color: #0088cc;
+            margin-right: 10px;
+        }
+        
+        .packs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 100px;
+        }
+        
+        .pack-card {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            padding-bottom: 70px;
+        }
+        
+        .pack-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+            border-color: #6a11cb;
+        }
+        
+        .pack-header {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .pack-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .pack-price {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .pack-content {
+            padding: 20px;
+        }
+        
+        .pack-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .features-list {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+        
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: #6a11cb;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .buy-btn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .buy-btn:hover {
+            background: linear-gradient(to right, #5a0db5, #1c66e8);
+            letter-spacing: 1px;
+        }
+        
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-decoration: none;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .floating-btn.main {
+            background: linear-gradient(to right, #ff0080, #ff8c00);
+            animation: float 2s ease-in-out infinite;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .payment-note {
+            background-color: rgba(0, 200, 83, 0.1);
+            border-left: 4px solid #00c853;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .payment-note i {
+            color: #00c853;
+            margin-right: 8px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .packs-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .floating-buttons {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .floating-btn {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+                flex: 1;
+                min-width: 140px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .pack-card {
+                padding-bottom: 60px;
+            }
+            
+            .buy-btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .pack-title {
+                font-size: 1.4rem;
+            }
+            
+            .pack-price {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Efeito de scroll */
+        .scroll-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            transform: scaleX(0);
+            transform-origin: left;
+            z-index: 1001;
+            transition: transform 0.1s ease;
+        }
+        
+        /* Animações de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pack-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .pack-card:nth-child(1) { animation-delay: 0.1s; }
+        .pack-card:nth-child(2) { animation-delay: 0.2s; }
+        .pack-card:nth-child(3) { animation-delay: 0.3s; }
+        .pack-card:nth-child(4) { animation-delay: 0.4s; }
+        .pack-card:nth-child(5) { animation-delay: 0.5s; }
+        .pack-card:nth-child(6) { animation-delay: 0.6s; }
+        .pack-card:nth-child(7) { animation-delay: 0.7s; }
+    </style>
+</head>
+<body>
+    <!-- Efeito de áudio -->
+    <audio id="scroll-sound" loop>
+        <!-- Será configurado via JavaScript -->
+    </audio>
+    
+    <!-- Efeito de scroll visual -->
+    <div class="scroll-effect" id="scroll-indicator"></div>
+    
+    <!-- Vídeo de fundo -->
+    <video autoplay muted loop id="video-bg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-background-with-particles-34455-large.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-compact-disc"></i>
+            </div>
+            <h1>Mundo Store Packs</h1>
+            <p class="subtitle">Atualize seu pendrive e packs para DJ com conteúdo premium!</p>
+            <p class="subtitle">Nossos packs estão hospedados no <span class="highlight">Telegram</span> (não é Media Fire e nem Google Drive)!</p>
+            
+            <div class="telegram-note">
+                <i class="fab fa-telegram"></i>
+                <span>O <strong>PACK PRO DJ 2026 R$30,00</strong> tem todos os packs do site! 100% hospedado no Telegram! (As atualizações desse pack tudo que conseguimos de novo jogamos no grupo VIP Telegram)!</span>
+            </div>
+        </header>
+        
+        <div class="packs-container">
+            <!-- Pack 1: Pro DJ 2026 -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">PACK PRO DJ 2026</div>
+                    <div class="pack-price">R$30,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Todos os packs do site incluso! Pagamento único sem mensalidades!</p>
+                    <ul class="features-list">
+                        <li>+7 Terabytes de músicas</li>
+                        <li>+2 Terabytes de efeitos sonoros</li>
+                        <li>Repertórios atualizados</li>
+                        <li>Videoclipes e softwares para DJ</li>
+                        <li>Packs para academia</li>
+                        <li>Pack Gospel Profissional</li>
+                        <li>Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)</li>
+                        <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
+                        <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
+                        <li>100% Hospedado no Telegram</li>
+                        <li>Atualizações constantes no grupo VIP</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe os links no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- Pack 2: Elite Fitness -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">ELITE FITNESS</div>
+                    <div class="pack-price">R$5,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Músicas específicas para atividades físicas de todos os tipos!</p>
+                    <ul class="features-list">
+                        <li>Músicas para academia</li>
+                        <li>Crossfit</li>
+                        <li>Ioga</li>
+                        <li>Zumba</li>
+                        <li>Capoeira</li>
+                        <li>Tudo do mundo fitness</li>
+                        <li>100% Hospedado no Telegram</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/176791116855739413059430558901913976" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- Pack 3: Gospel Pro -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">PACK GOSPEL PRO</div>
+                    <div class="pack-price">R$5,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Pack avaliado para web rádios! Conteúdo gospel profissional.</p>
+                    <ul class="features-list">
+                        <li>Músicas Gospel e Católicas</li>
+                        <li>Pregações</li>
+                        <li>Músicas para adoração</li>
+                        <li>Videoclipes e muito mais!</li>
+                        <li>Pack profissional para web rádio!</li>
+                        <li>100% Hospedado no Telegram</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/176791150892160312974801161891021" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- Pack 4: DJ Retro -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">PACK DJ RETRO</div>
+                    <div class="pack-price">R$5,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Viagem no tempo com as melhores músicas das décadas passadas!</p>
+                    <ul class="features-list">
+                        <li>Discotecas</li>
+                        <li>Flashback</li>
+                        <li>Eurodance</li>
+                        <li>Dance antigos</li>
+                        <li>Reggae</li>
+                        <li>E muito mais!</li>
+                        <li>100% Hospedado no Telegram</li>
+                        <li>Atualizações constantes</li>
+                        <li>Pagamento único sem mensalidades!</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/17679118811859650184486821012071" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- Pack 5: Festas Particular -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">PACK DJ FESTAS PARTICULAR</div>
+                    <div class="pack-price">R$10,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Músicas para todos os tipos de festas e celebrações!</p>
+                    <ul class="features-list">
+                        <li>Músicas Infantil</li>
+                        <li>Casamento</li>
+                        <li>Formatura</li>
+                        <li>Halloween</li>
+                        <li>Festa 15 anos</li>
+                        <li>Natalinas</li>
+                        <li>Reveillon</li>
+                        <li>Festa Junina</li>
+                        <li>Carnaval</li>
+                        <li>100% Hospedado no Telegram</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/176791224929513447481284312925" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- Pack 6: Moda de Viola -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">PACK MODA DE VIOLA</div>
+                    <div class="pack-price">R$10,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Só modão! Nesse pack não tem sertanejo universitário.</p>
+                    <ul class="features-list">
+                        <li>Só as melhores modas de viola</li>
+                        <li>Sertanejo raiz</li>
+                        <li>Músicas caipiras</li>
+                        <li>Cururu</li>
+                        <li>100% Hospedado no Telegram</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/176791274755722491971924661" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- Pack 7: Caminhoneiro -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">MÚSICAS PARA CAMINHONEIRO</div>
+                    <div class="pack-price">R$10,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Só as top para nossos amigos da estrada!</p>
+                    <ul class="features-list">
+                        <li>Músicas para estrada</li>
+                        <li>Forró</li>
+                        <li>Sertanejo</li>
+                        <li>MPB</li>
+                        <li>Músicas regionais</li>
+                        <li>100% Hospedado no Telegram</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/176791325537466644165260349806" class="buy-btn" target="_blank">
+                    COMPRAR AGORA
+                </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Mundo Store Packs &copy; 2026 - Todos os direitos reservados</p>
+            <p>Conteúdo 100% hospedado no Telegram | Atualizações constantes | Pagamento único sem mensalidades</p>
+            <p>Contato: mundostorepacks@email.com</p>
+        </footer>
+    </div>
+    
+    <!-- Botões flutuantes -->
+    <div class="floating-buttons">
+        <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="floating-btn main" target="_blank">
+            <i class="fas fa-crown"></i> PACK PRO DJ 2026 - R$30,00
+        </a>
+        <a href="https://mundodj.erby.site/product/176791116855739413059430558901913976" class="floating-btn" target="_blank">
+            <i class="fas fa-dumbbell"></i> ELITE FITNESS - R$5,00
+        </a>
+        <a href="https://mundodj.erby.site/product/176791150892160312974801161891021" class="floating-btn" target="_blank">
+            <i class="fas fa-church"></i> GOSPEL PRO - R$5,00
+        </a>
+    </div>
+
+    <!-- Pixel do Facebook -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '25652670291043537');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" 
+        src="https://www.facebook.com/tr?id=25652670291043537&ev=PageView&noscript=1"/>
+    </noscript>
+
+    <script>
+        // Configuração do áudio de efeito
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('scroll-sound');
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            
+            // Usar um áudio de efeito sonoro (substitua pela URL do seu arquivo efeito.mp3)
+            // Por enquanto, vamos usar um efeito online como exemplo
+            audio.src = 'https://assets.mixkit.co/active_storage/sfx/201/201-preview.mp3';
+            audio.volume = 0.3;
+            
+            let isPlaying = false;
+            let scrollTimeout;
+            let hasPlayedOnce = false;
+            
+            // Função para tocar o efeito sonoro
+            function playScrollSound() {
+                if (!hasPlayedOnce) {
+                    // Primeira vez: toca do início
+                    audio.currentTime = 0;
+                    hasPlayedOnce = true;
+                } else {
+                    // Demais vezes: continua de onde parou
+                    if (audio.currentTime >= audio.duration - 0.5) {
+                        audio.currentTime = 2; // Volta para 2 segundos se estiver perto do fim
+                    }
+                }
+                
+                audio.play();
+                isPlaying = true;
+                
+                // Para após 3 segundos
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    audio.pause();
+                    isPlaying = false;
+                }, 3000);
+            }
+            
+            // Detectar scroll
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', function() {
+                // Atualizar indicador de scroll
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollIndicator.style.transform = `scaleX(${scrolled / 100})`;
+                
+                // Detectar direção do scroll
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (Math.abs(scrollTop - lastScrollTop) > 50) { // Sensibilidade do scroll
+                    playScrollSound();
+                }
+                lastScrollTop = scrollTop;
+            });
+            
+            // Inicializar animações
+            const packCards = document.querySelectorAll('.pack-card');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, observerOptions);
+            
+            packCards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Adicionar ano atual no footer
+            const yearSpan = document.querySelector('footer p:first-child');
+            if (yearSpan) {
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2026', new Date().getFullYear());
+            }
+            
+            // Configuração do vídeo de fundo (fallback)
+            const videoBg = document.getElementById('video-bg');
+            videoBg.addEventListener('error', function() {
+                // Fallback para imagem se o vídeo não carregar
+                document.getElementById('video-bg').style.display = 'none';
+                document.querySelector('.overlay').style.background = 'linear-gradient(to bottom, rgba(10, 0, 20, 0.95) 0%, rgba(30, 0, 60, 0.9) 100%)';
+            });
+        });
+    </script>
+</body>
+</html>
