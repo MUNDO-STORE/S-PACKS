@@ -18,17 +18,50 @@
             color: #fff;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
         }
         
-        #video-bg {
+        /* Fundo animado leve */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: -2;
+            background: linear-gradient(45deg, #0a0514 0%, #1a0b2e 25%, #0a0514 50%, #1a0b2e 75%, #0a0514 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            opacity: 0.9;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Partículas leves */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             opacity: 0.3;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(106, 17, 203, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
         }
         
         .overlay {
@@ -37,18 +70,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(20, 0, 40, 0.8) 100%);
+            background: rgba(0, 0, 0, 0.7);
             z-index: -1;
-        }
-        
-        .video-fallback {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #0a0514 0%, #1a0b2e 50%, #0a0514 100%);
-            z-index: -3;
         }
         
         .container {
@@ -64,28 +87,48 @@
             padding: 30px 0;
             margin-bottom: 30px;
             border-bottom: 2px solid #6a11cb;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(106, 17, 203, 0.2) 0%, transparent 70%);
+            z-index: -1;
         }
         
         .logo {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #6a11cb;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(106, 17, 203, 0.8);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 10px;
             background: linear-gradient(to right, #6a11cb, #2575fc);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 800;
         }
         
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #ccc;
             margin-bottom: 15px;
             font-weight: 300;
@@ -94,85 +137,142 @@
         .highlight {
             color: #6a11cb;
             font-weight: bold;
+            text-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
         }
         
         .telegram-note {
-            background-color: rgba(0, 136, 204, 0.2);
+            background: rgba(0, 136, 204, 0.15);
             border-left: 4px solid #0088cc;
-            padding: 12px;
-            margin: 20px 0;
+            padding: 15px;
+            margin: 25px 0;
             border-radius: 0 8px 8px 0;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 136, 204, 0.3);
         }
         
         .telegram-note i {
             color: #0088cc;
             margin-right: 10px;
+            font-size: 1.4rem;
         }
         
         .packs-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 100px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 120px;
         }
         
         .pack-card {
-            background: rgba(30, 30, 46, 0.85);
-            border-radius: 15px;
+            background: rgba(20, 15, 35, 0.9);
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            padding-bottom: 70px;
-            backdrop-filter: blur(5px);
+            padding-bottom: 80px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .pack-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(106, 17, 203, 0.4);
             border-color: #6a11cb;
         }
         
+        .pack-card.featured {
+            border: 2px solid #ff0080;
+            box-shadow: 0 15px 35px rgba(255, 0, 128, 0.3);
+        }
+        
+        .pack-card.featured:hover {
+            box-shadow: 0 25px 50px rgba(255, 0, 128, 0.5);
+        }
+        
         .pack-header {
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            padding: 20px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 25px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pack-card.featured .pack-header {
+            background: linear-gradient(135deg, #ff0080 0%, #ff8c00 100%);
+        }
+        
+        .pack-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .pack-card:hover .pack-header::before {
+            transform: translateX(100%);
         }
         
         .pack-title {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: bold;
             margin-bottom: 5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
         .pack-price {
-            font-size: 2.2rem;
-            font-weight: bold;
+            font-size: 2.8rem;
+            font-weight: 900;
             color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .pack-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff0080;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255, 0, 128, 0.5);
         }
         
         .pack-content {
-            padding: 20px;
+            padding: 25px;
         }
         
         .pack-description {
-            color: #ccc;
-            line-height: 1.6;
+            color: #ddd;
+            line-height: 1.7;
             margin-bottom: 20px;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
         
         .features-list {
             list-style-type: none;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .features-list li {
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             position: relative;
-            padding-left: 25px;
+            padding-left: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .features-list li:hover {
+            padding-left: 35px;
+            color: #6a11cb;
         }
         
         .features-list li:before {
@@ -181,6 +281,7 @@
             position: absolute;
             left: 0;
             font-weight: bold;
+            font-size: 1.2rem;
         }
         
         .buy-btn {
@@ -191,19 +292,28 @@
             background: linear-gradient(to right, #6a11cb, #2575fc);
             color: white;
             border: none;
-            padding: 15px;
-            font-size: 1.1rem;
+            padding: 18px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             display: block;
             transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        
+        .pack-card.featured .buy-btn {
+            background: linear-gradient(to right, #ff0080, #ff8c00);
         }
         
         .buy-btn:hover {
             background: linear-gradient(to right, #5a0db5, #1c66e8);
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+        }
+        
+        .pack-card.featured .buy-btn:hover {
+            background: linear-gradient(to right, #e60073, #e67e00);
         }
         
         .floating-buttons {
@@ -212,70 +322,97 @@
             right: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             z-index: 1000;
         }
         
         .floating-btn {
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 15px 20px;
-            font-size: 1rem;
+            padding: 18px 25px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.4);
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             text-decoration: none;
-            animation: float 3s ease-in-out infinite;
+            animation: floatBtn 4s ease-in-out infinite;
+            min-width: 220px;
+        }
+        
+        .floating-btn.pendrive-btn {
+            background: linear-gradient(135deg, #00c853, #64dd17);
+            animation: floatBtn 3s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4);
         }
         
         .floating-btn.main {
-            background: linear-gradient(to right, #ff0080, #ff8c00);
-            animation: float 2s ease-in-out infinite;
+            background: linear-gradient(135deg, #ff0080, #ff8c00);
+            animation: floatBtn 2.5s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(255, 0, 128, 0.4);
         }
         
         .floating-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
+            transform: scale(1.08);
+            box-shadow: 0 12px 30px rgba(106, 17, 203, 0.6);
+            letter-spacing: 1px;
         }
         
-        @keyframes float {
+        .floating-btn.pendrive-btn:hover {
+            box-shadow: 0 12px 30px rgba(0, 200, 83, 0.6);
+        }
+        
+        .floating-btn.main:hover {
+            box-shadow: 0 12px 30px rgba(255, 0, 128, 0.6);
+        }
+        
+        @keyframes floatBtn {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
         
         footer {
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid #333;
+            padding: 40px 0;
+            border-top: 1px solid rgba(106, 17, 203, 0.3);
             margin-top: 40px;
             color: #aaa;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            background: rgba(10, 5, 20, 0.7);
+            border-radius: 20px 20px 0 0;
         }
         
         .payment-note {
-            background-color: rgba(0, 200, 83, 0.1);
+            background: rgba(0, 200, 83, 0.1);
             border-left: 4px solid #00c853;
-            padding: 10px;
-            margin-top: 10px;
+            padding: 12px;
+            margin-top: 15px;
             border-radius: 0 5px 5px 0;
+            border: 1px solid rgba(0, 200, 83, 0.2);
         }
         
         .payment-note i {
             color: #00c853;
-            margin-right: 8px;
+            margin-right: 10px;
         }
         
         /* Responsividade */
+        @media (max-width: 992px) {
+            .packs-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
+        }
+        
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .subtitle {
@@ -284,7 +421,7 @@
             
             .packs-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 25px;
             }
             
             .floating-buttons {
@@ -297,14 +434,19 @@
             }
             
             .floating-btn {
-                padding: 12px 15px;
-                font-size: 0.9rem;
+                padding: 15px 20px;
+                font-size: 1rem;
                 flex: 1;
-                min-width: 140px;
+                min-width: 180px;
+                margin: 5px;
             }
             
             .logo {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+            
+            .pack-price {
+                font-size: 2.4rem;
             }
         }
         
@@ -314,20 +456,26 @@
             }
             
             .pack-card {
-                padding-bottom: 60px;
+                padding-bottom: 70px;
             }
             
             .buy-btn {
-                padding: 12px;
-                font-size: 1rem;
+                padding: 16px;
+                font-size: 1.1rem;
             }
             
             .pack-title {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
             }
             
             .pack-price {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
+            }
+            
+            .floating-btn {
+                min-width: 150px;
+                padding: 14px 18px;
+                font-size: 0.95rem;
             }
         }
         
@@ -337,19 +485,19 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            height: 4px;
+            background: linear-gradient(to right, #6a11cb, #2575fc, #ff0080);
             transform: scaleX(0);
             transform-origin: left;
             z-index: 1001;
-            transition: transform 0.1s ease;
+            transition: transform 0.2s ease-out;
         }
         
         /* Animações de entrada */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -358,7 +506,7 @@
         }
         
         .pack-card {
-            animation: fadeInUp 0.6s ease forwards;
+            animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             opacity: 0;
         }
         
@@ -369,6 +517,7 @@
         .pack-card:nth-child(5) { animation-delay: 0.5s; }
         .pack-card:nth-child(6) { animation-delay: 0.6s; }
         .pack-card:nth-child(7) { animation-delay: 0.7s; }
+        .pack-card:nth-child(8) { animation-delay: 0.8s; }
         
         /* Controles de áudio */
         .audio-controls {
@@ -376,24 +525,25 @@
             top: 20px;
             right: 20px;
             z-index: 1002;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(20, 15, 35, 0.9);
             border-radius: 50px;
-            padding: 10px;
+            padding: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(106, 17, 203, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
         
         .audio-toggle {
             background: transparent;
             border: none;
             color: #6a11cb;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -403,6 +553,7 @@
         
         .audio-toggle:hover {
             background: rgba(106, 17, 203, 0.2);
+            transform: scale(1.1);
         }
         
         .audio-toggle.muted {
@@ -421,19 +572,14 @@
     <!-- Efeito de scroll visual -->
     <div class="scroll-effect" id="scroll-indicator"></div>
     
-    <!-- Fallback para vídeo -->
-    <div class="video-fallback"></div>
-    
-    <!-- Vídeo de fundo com múltiplas fontes para compatibilidade -->
-    <video autoplay muted loop id="video-bg" playsinline>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-background-with-particles-34455-large.mp4" type="video/mp4">
-        <source src="https://cdn.pixabay.com/video/2023/02/28/159905_large.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos HTML5.
-    </video>
+    <!-- Fundo animado leve -->
+    <div class="animated-bg"></div>
+    <div class="particles" id="particles"></div>
     <div class="overlay"></div>
     
     <div class="container">
         <header>
+            <div class="header-glow"></div>
             <div class="logo">
                 <i class="fas fa-compact-disc"></i>
             </div>
@@ -448,8 +594,9 @@
         </header>
         
         <div class="packs-container">
-            <!-- Pack 1: Pro DJ 2026 -->
-            <div class="pack-card">
+            <!-- Pack 1: Pro DJ 2026 (FEATURED) -->
+            <div class="pack-card featured">
+                <div class="pack-badge">MAIS VENDIDO</div>
                 <div class="pack-header">
                     <div class="pack-title">PACK PRO DJ 2026</div>
                     <div class="pack-price">R$30,00</div>
@@ -467,7 +614,7 @@
                         <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
                         <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
                         <li>100% Hospedado no Telegram</li>
-                        <li>Atualizações (tudo que conseguimos de novo jogamos no grupo! VIP</li>
+                        <li>Atualizações constantes no grupo VIP</li>
                     </ul>
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
@@ -475,7 +622,35 @@
                     </div>
                 </div>
                 <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="buy-btn" target="_blank">
-                    COMPRAR AGORA
+                    <i class="fas fa-crown"></i> COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- NOVO CARD: Atualize seu Pendrive -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">ATUALIZE SEU PENDRIVE</div>
+                    <div class="pack-price">R$5,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Mais de 25 mil músicas atualizadas para seu pendrive!</p>
+                    <ul class="features-list">
+                        <li>Mais de 25 mil músicas</li>
+                        <li>Mais de 30 ritmos diferentes</li>
+                        <li>Músicas atualizadas 2024/2025</li>
+                        <li>Sem vinhetas entre as faixas</li>
+                        <li>Organização por pastas</li>
+                        <li>Pronto para usar em qualquer aparelho</li>
+                        <li>Formato MP3 de alta qualidade</li>
+                        <li>Sem atualizações - conteúdo completo</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/17679162969932904906361470" class="buy-btn" target="_blank">
+                    <i class="fas fa-usb"></i> COMPRAR AGORA
                 </a>
             </div>
             
@@ -548,7 +723,7 @@
                         <li>Reggae</li>
                         <li>E muito mais!</li>
                         <li>100% Hospedado no Telegram</li>
-                        <li>Atualizações (tudo que conseguimos de novo jogamos no grupo)</li>
+                        <li>Atualizações constantes</li>
                         <li>Pagamento único sem mensalidades!</li>
                     </ul>
                     <div class="payment-note">
@@ -645,7 +820,7 @@
         
         <footer>
             <p>Mundo Store Packs &copy; <span id="current-year">2026</span> - Todos os direitos reservados</p>
-            <p>Conteúdo 100% hospedado no Telegram | Pagamento único sem mensalidades</p>
+            <p>Conteúdo 100% hospedado no Telegram | Atualizações constantes | Pagamento único sem mensalidades</p>
             <p>Contato: mundostorepacks@email.com</p>
         </footer>
     </div>
@@ -655,11 +830,11 @@
         <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="floating-btn main" target="_blank">
             <i class="fas fa-crown"></i> PACK PRO DJ 2026 - R$30,00
         </a>
+        <a href="https://mundodj.erby.site/product/17679162969932904906361470" class="floating-btn pendrive-btn" target="_blank">
+            <i class="fas fa-usb"></i> ATUALIZE SEU PENDRIVE - R$5,00
+        </a>
         <a href="https://mundodj.erby.site/product/176791116855739413059430558901913976" class="floating-btn" target="_blank">
             <i class="fas fa-dumbbell"></i> ELITE FITNESS - R$5,00
-        </a>
-        <a href="https://mundodj.erby.site/product/176791150892160312974801161891021" class="floating-btn" target="_blank">
-            <i class="fas fa-church"></i> GOSPEL PRO - R$5,00
         </a>
     </div>
 
@@ -688,54 +863,62 @@
             const audioIcon = audioToggle.querySelector('i');
             const scrollIndicator = document.getElementById('scroll-indicator');
             const currentYearSpan = document.getElementById('current-year');
-            const videoBg = document.getElementById('video-bg');
+            const particlesContainer = document.getElementById('particles');
+            
+            // Criar partículas para o fundo
+            function createParticles() {
+                const particleCount = 30;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Tamanho aleatório
+                    const size = Math.random() * 5 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    // Posição inicial aleatória
+                    particle.style.left = `${Math.random() * 100}%`;
+                    
+                    // Atraso de animação aleatório
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    
+                    // Duração de animação aleatória
+                    const duration = Math.random() * 10 + 10;
+                    particle.style.animationDuration = `${duration}s`;
+                    
+                    // Opacidade aleatória
+                    particle.style.opacity = Math.random() * 0.5 + 0.1;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
             
             // Estado do áudio
             let isAudioEnabled = true;
             let isPlaying = false;
             let scrollTimeout;
             let lastScrollTime = 0;
-            const SCROLL_COOLDOWN = 2000; // 2 segundos entre efeitos
+            const SCROLL_COOLDOWN = 2500; // 2.5 segundos entre efeitos
             
             // Criar elemento de áudio
             const audio = new Audio();
             
-            // URLs alternativas para efeito sonoro (substitua pelo seu arquivo efeito.mp3)
-            const efeito.mp3 = [
-                'https://assets.mixkit.co/active_storage/sfx/201/201-preview.mp3',
-                'https://assets.mixkit.co/active_storage/sfx/284/284-preview.mp3',
-                'https://assets.mixkit.co/active_storage/sfx/257/257-preview.mp3'
+            // URLs de efeitos sonoros (substitua pela URL do seu efeito.mp3)
+            // Exemplo: 'https://seusite.com/audio/efeito.mp3'
+            const audioUrls = [
+                'https://assets.mixkit.co/active_storage/sfx/201/201-preview.mp3', // Efeito 1
+                'https://assets.mixkit.co/active_storage/sfx/284/284-preview.mp3', // Efeito 2
+                'https://assets.mixkit.co/active_storage/sfx/257/257-preview.mp3'  // Efeito 3
             ];
             
             // Carregar áudio
             audio.src = audioUrls[0];
-            audio.volume = 0.2;
+            audio.volume = 0.15; // Volume mais baixo
             
-            // Carregar áudio alternativo se o primeiro falhar
-            audio.addEventListener('error', function() {
-                console.log('Erro ao carregar áudio 1, tentando alternativa...');
-                this.src = audioUrls[1];
-                this.load();
-            });
-            
-            // Configurar vídeo de fundo
-            videoBg.addEventListener('error', function() {
-                console.log('Vídeo de fundo não carregou, usando fallback');
-                document.querySelector('.video-fallback').style.zIndex = '-2';
-                this.style.display = 'none';
-            });
-            
-            // Tentar carregar o vídeo
-            videoBg.load();
-            videoBg.play().catch(function(error) {
-                console.log('Autoplay bloqueado, tentando play com user interaction');
-                // Fallback para imagem se o vídeo não carregar
-                document.querySelector('.video-fallback').style.zIndex = '-2';
-                videoBg.style.display = 'none';
-            });
-            
-            // Atualizar ano atual
-            currentYearSpan.textContent = new Date().getFullYear();
+            // Configurar áudio para carregamento
+            audio.preload = 'auto';
             
             // Função para tocar efeito sonoro com ponto aleatório
             function playScrollSound() {
@@ -744,11 +927,12 @@
                 const now = Date.now();
                 if (now - lastScrollTime < SCROLL_COOLDOWN) return;
                 
-                // Sorteia um ponto aleatório na timeline (entre 0 e 70% da duração)
+                // Sorteia um ponto aleatório na timeline (entre 0 e 80% da duração)
                 // Para evitar começar muito perto do fim
-                if (audio.duration && audio.duration > 3) {
-                    const randomStart = Math.random() * (audio.duration * 0.7);
+                if (audio.duration && audio.duration > 2) {
+                    const randomStart = Math.random() * (audio.duration * 0.8);
                     audio.currentTime = randomStart;
+                    console.log(`Efeito sonoro iniciado em: ${randomStart.toFixed(2)}s`);
                 }
                 
                 audio.play().then(() => {
@@ -763,6 +947,7 @@
                     }, 3000);
                 }).catch(error => {
                     console.log('Erro ao reproduzir áudio:', error);
+                    // Se falhar, desativa o áudio
                     isAudioEnabled = false;
                     audioToggle.classList.add('muted');
                     audioIcon.className = 'fas fa-volume-mute';
@@ -781,7 +966,7 @@
                     audio.play().then(() => {
                         audio.pause();
                         audio.currentTime = 0;
-                        audio.volume = 0.2;
+                        audio.volume = 0.15;
                     }).catch(() => {
                         isAudioEnabled = false;
                         audioToggle.classList.add('muted');
@@ -795,9 +980,9 @@
                 }
             });
             
-            // Detectar scroll
+            // Detectar scroll com throttle
             let lastScrollTop = 0;
-            let scrollDirection = 0;
+            let scrollThrottle;
             
             window.addEventListener('scroll', function() {
                 // Atualizar indicador de scroll visual
@@ -806,58 +991,86 @@
                 const scrolled = (winScroll / height) * 100;
                 scrollIndicator.style.transform = `scaleX(${scrolled / 100})`;
                 
-                // Detectar direção do scroll
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const newDirection = scrollTop > lastScrollTop ? 1 : -1;
-                
-                // Tocar som apenas quando mudar de direção ou após rolagem significativa
-                if (Math.abs(scrollTop - lastScrollTop) > 100 || newDirection !== scrollDirection) {
-                    playScrollSound();
-                    scrollDirection = newDirection;
+                // Throttle para melhor performance
+                if (!scrollThrottle) {
+                    scrollThrottle = setTimeout(() => {
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        
+                        // Verificar se o scroll foi significativo (> 50px)
+                        if (Math.abs(scrollTop - lastScrollTop) > 50) {
+                            playScrollSound();
+                            lastScrollTop = scrollTop;
+                        }
+                        
+                        scrollThrottle = null;
+                    }, 100);
                 }
+            });
+            
+            // Inicializar elementos
+            function initPage() {
+                // Criar partículas
+                createParticles();
                 
-                lastScrollTop = scrollTop;
-            });
-            
-            // Inicializar animações dos cards
-            const packCards = document.querySelectorAll('.pack-card');
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                    }
+                // Atualizar ano atual
+                currentYearSpan.textContent = new Date().getFullYear();
+                
+                // Inicializar animações dos cards
+                const packCards = document.querySelectorAll('.pack-card');
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+                
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                        }
+                    });
+                }, observerOptions);
+                
+                packCards.forEach(card => {
+                    observer.observe(card);
                 });
-            }, observerOptions);
-            
-            packCards.forEach(card => {
-                observer.observe(card);
-            });
-            
-            // Efeito sonoro ao clicar nos botões de compra
-            document.querySelectorAll('.buy-btn, .floating-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    if (isAudioEnabled) {
-                        const clickSound = new Audio();
-                        clickSound.src = 'https://assets.mixkit.co/active_storage/sfx/246/246-preview.mp3';
-                        clickSound.volume = 0.3;
-                        clickSound.play();
-                    }
+                
+                // Efeito sonoro ao clicar nos botões de compra
+                document.querySelectorAll('.buy-btn, .floating-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        if (isAudioEnabled) {
+                            const clickSound = new Audio();
+                            // Som de clique suave
+                            clickSound.src = 'https://assets.mixkit.co/active_storage/sfx/246/246-preview.mp3';
+                            clickSound.volume = 0.2;
+                            clickSound.play().catch(() => {});
+                        }
+                    });
                 });
-            });
+                
+                // Pré-carregar áudio
+                audio.load();
+                
+                // Verificar suporte a autoplay
+                audio.play().then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }).catch(() => {
+                    console.log('Autoplay de áudio bloqueado - aguardando interação do usuário');
+                    audioToggle.title = 'Clique para ativar efeitos sonoros';
+                });
+            }
             
-            // Verificar se o navegador suporta autoplay
-            audio.play().then(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }).catch(() => {
-                console.log('Autoplay de áudio bloqueado pelo navegador');
-                // Mostrar instrução para o usuário
-                audioToggle.title = 'Clique para ativar efeitos sonoros (bloqueado pelo navegador)';
+            // Inicializar página
+            initPage();
+            
+            // Adicionar tratamento de erro para o áudio
+            audio.addEventListener('error', function(e) {
+                console.log('Erro ao carregar áudio principal:', e);
+                // Tentar carregar alternativa
+                if (this.src !== audioUrls[1]) {
+                    this.src = audioUrls[1];
+                    this.load();
+                }
             });
         });
     </script>
