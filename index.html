@@ -326,6 +326,13 @@
             flex-direction: column;
             gap: 10px;
             z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .floating-buttons.hidden {
+            transform: translateX(250px);
+            opacity: 0;
+            pointer-events: none;
         }
         
         .floating-btn {
@@ -688,6 +695,10 @@
                 flex-direction: column;
             }
             
+            .floating-buttons.hidden {
+                transform: translateX(200px);
+            }
+            
             .floating-btn {
                 padding: 10px 15px;
                 font-size: 0.85rem;
@@ -751,6 +762,10 @@
                 min-width: 150px;
                 padding: 10px 14px;
                 font-size: 0.8rem;
+            }
+            
+            .floating-buttons.hidden {
+                transform: translateX(180px);
             }
             
             .purchase-notification {
@@ -1281,7 +1296,7 @@
     </div>
     
     <!-- Botões flutuantes menores -->
-    <div class="floating-buttons">
+    <div class="floating-buttons" id="floating-buttons">
         <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="floating-btn main" target="_blank">
             <i class="fas fa-crown"></i> PACK PRO - R$30
         </a>
@@ -1340,6 +1355,7 @@
             const buyerName = document.getElementById('buyer-name');
             const buyerLocation = document.getElementById('buyer-location');
             const purchaseInfo = document.getElementById('purchase-info');
+            const floatingButtons = document.getElementById('floating-buttons');
             
             // Dados para notificações
             const maleNames = ['Carlos', 'João', 'Pedro', 'Lucas', 'Miguel', 'Rafael', 'Gabriel', 'Fernando', 'Roberto', 'Bruno'];
@@ -1492,6 +1508,19 @@
                 }
             }
             
+            // Controle dos botões flutuantes (aparece/desaparece a cada 30 segundos)
+            function toggleFloatingButtons() {
+                if (floatingButtons.classList.contains('hidden')) {
+                    // Se estiver escondido, mostrar
+                    floatingButtons.classList.remove('hidden');
+                    console.log('Botões flutuantes: VISÍVEIS');
+                } else {
+                    // Se estiver visível, esconder
+                    floatingButtons.classList.add('hidden');
+                    console.log('Botões flutuantes: ESCONDIDOS');
+                }
+            }
+            
             // Detectar scroll
             let lastScrollTop = 0;
             let scrollThrottle;
@@ -1545,6 +1574,20 @@
                 // Iniciar atualização de depoimentos (a cada 1 minuto)
                 setTimeout(updateTestimonials, 10000); // Primeira após 10s
                 setInterval(updateTestimonials, 60000); // Depois a cada 60s
+                
+                // Iniciar ciclo dos botões flutuantes (mostra/esconde a cada 30 segundos)
+                // Começa visível, depois de 30s esconde, depois de 30s mostra, e assim por diante
+                setInterval(toggleFloatingButtons, 30000); // Alterna a cada 30 segundos
+                
+                // Inicialmente os botões estão visíveis
+                floatingButtons.classList.remove('hidden');
+                console.log('Botões flutuantes iniciados: VISÍVEIS');
+                
+                // Após 30 segundos, esconder pela primeira vez
+                setTimeout(() => {
+                    floatingButtons.classList.add('hidden');
+                    console.log('Botões flutuantes: Primeiro ciclo - ESCONDIDOS');
+                }, 30000);
             }
             
             // Inicializar página
