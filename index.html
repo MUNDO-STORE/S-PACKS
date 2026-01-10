@@ -361,6 +361,12 @@
             box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
         }
         
+        .floating-btn.pendrive-low-price {
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            animation: floatBtn 3.5s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+        
         .floating-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(106, 17, 203, 0.5);
@@ -373,6 +379,10 @@
         
         .floating-btn.main:hover {
             box-shadow: 0 8px 20px rgba(255, 0, 128, 0.5);
+        }
+        
+        .floating-btn.pendrive-low-price:hover {
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.5);
         }
         
         .floating-btn i {
@@ -736,6 +746,7 @@
         .pack-card:nth-child(6) { animation-delay: 0.6s; }
         .pack-card:nth-child(7) { animation-delay: 0.7s; }
         .pack-card:nth-child(8) { animation-delay: 0.8s; }
+        .pack-card:nth-child(9) { animation-delay: 0.9s; }
         
         /* Controles de áudio */
         .audio-controls {
@@ -857,16 +868,44 @@
                 </a>
             </div>
             
-            <!-- NOVO CARD: Atualize seu Pendrive -->
+            <!-- NOVO CARD: Atualize seu Pendrive R$3,99 -->
+            <div class="pack-card">
+                <div class="pack-header">
+                    <div class="pack-title">ATUALIZE SEU PENDRIVE</div>
+                    <div class="pack-price">R$3,99</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Mais de 25 mil músicas atualizadas para seu pendrive!</p>
+                    <ul class="features-list">
+                        <li>Mais de 25 mil músicas</li>
+                        <li>Mais de 30 ritmos diferentes</li>
+                        <li>Músicas atualizadas 2024/2025</li>
+                        <li>Sem vinhetas entre as faixas</li>
+                        <li>Organização por pastas</li>
+                        <li>Pronto para usar em qualquer aparelho</li>
+                        <li>Formato MP3 de alta qualidade</li>
+                        <li>Sem atualizações - conteúdo completo</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/1767315685983988143903314326" class="buy-btn" target="_blank">
+                    <i class="fas fa-usb"></i> COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- CARD Atualize seu Pendrive R$5,00 (Atualizado) -->
             <div class="pack-card">
                 <div class="pack-header">
                     <div class="pack-title">ATUALIZE SEU PENDRIVE</div>
                     <div class="pack-price">R$5,00</div>
                 </div>
                 <div class="pack-content">
-                    <p class="pack-description">Mais de 25 mil músicas atualizadas para seu pendrive!</p>
+                    <p class="pack-description">Mais de 35 mil músicas atualizadas para seu pendrive!</p>
                     <ul class="features-list">
-                        <li>Mais de 25 mil músicas</li>
+                        <li>Mais de 35 mil músicas atualizadas</li>
                         <li>Mais de 30 ritmos diferentes</li>
                         <li>Músicas atualizadas 2024/2025</li>
                         <li>Sem vinhetas entre as faixas</li>
@@ -1160,8 +1199,11 @@
         <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="floating-btn main" target="_blank">
             <i class="fas fa-crown"></i> PACK PRO - R$30
         </a>
+        <a href="https://mundodj.erby.site/product/1767315685983988143903314326" class="floating-btn pendrive-low-price" target="_blank">
+            <i class="fas fa-usb"></i> PENDRIVE - R$3,99
+        </a>
         <a href="https://mundodj.erby.site/product/17679162969932904906361470" class="floating-btn pendrive-btn" target="_blank">
-            <i class="fas fa-usb"></i> PENDRIVE - R$5
+            <i class="fas fa-usb"></i> PENDRIVE 35K - R$5
         </a>
         <a href="https://mundodj.erby.site/product/17680068611575726346485495" class="floating-btn" target="_blank" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
             <i class="fas fa-gamepad"></i> JOGOS RETRO - R$10
@@ -1215,7 +1257,8 @@
             const states = ['SP', 'RJ', 'MG', 'RS', 'PR', 'SC', 'BA', 'PE', 'CE', 'DF'];
             const packs = [
                 { name: 'PACK PRO DJ 2026', price: 'R$30,00' },
-                { name: 'ATUALIZE SEU PENDRIVE', price: 'R$5,00' },
+                { name: 'ATUALIZE SEU PENDRIVE R$3,99', price: 'R$3,99' },
+                { name: 'ATUALIZE SEU PENDRIVE 35K', price: 'R$5,00' },
                 { name: 'ELITE FITNESS', price: 'R$5,00' },
                 { name: 'PACK GOSPEL PRO', price: 'R$5,00' },
                 { name: 'PACK DJ RETRO', price: 'R$5,00' },
