@@ -367,6 +367,18 @@
             box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
         }
         
+        .floating-btn.vip-btn {
+            background: linear-gradient(135deg, #9c27b0, #673ab7);
+            animation: floatBtn 3.2s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+        }
+        
+        .floating-btn.light-btn {
+            background: linear-gradient(135deg, #00bcd4, #2196f3);
+            animation: floatBtn 3.8s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+        }
+        
         .floating-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(106, 17, 203, 0.5);
@@ -383,6 +395,14 @@
         
         .floating-btn.pendrive-low-price:hover {
             box-shadow: 0 8px 20px rgba(255, 87, 34, 0.5);
+        }
+        
+        .floating-btn.vip-btn:hover {
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.5);
+        }
+        
+        .floating-btn.light-btn:hover {
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
         }
         
         .floating-btn i {
@@ -601,6 +621,40 @@
             margin-right: 10px;
         }
         
+        /* Botão VIP Telegram no final da página */
+        .telegram-vip-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 40px auto 20px;
+            background: linear-gradient(135deg, #0088cc, #00aced);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 20px 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4);
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .telegram-vip-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 136, 204, 0.6);
+            letter-spacing: 1.5px;
+        }
+        
+        .telegram-vip-button i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
         /* Responsividade */
         @media (max-width: 992px) {
             .packs-container {
@@ -662,6 +716,13 @@
             .testimonial-card {
                 padding: 20px;
             }
+            
+            .telegram-vip-button {
+                max-width: 350px;
+                padding: 18px 25px;
+                font-size: 1.2rem;
+                margin: 30px auto 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -705,6 +766,13 @@
             .section-title {
                 font-size: 1.8rem;
             }
+            
+            .telegram-vip-button {
+                max-width: 300px;
+                padding: 16px 20px;
+                font-size: 1.1rem;
+                margin: 25px auto 10px;
+            }
         }
         
         /* Efeito de scroll */
@@ -747,57 +815,9 @@
         .pack-card:nth-child(7) { animation-delay: 0.7s; }
         .pack-card:nth-child(8) { animation-delay: 0.8s; }
         .pack-card:nth-child(9) { animation-delay: 0.9s; }
-        
-        /* Controles de áudio */
-        .audio-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1002;
-            background: rgba(20, 15, 35, 0.9);
-            border-radius: 50px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(106, 17, 203, 0.5);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .audio-toggle {
-            background: transparent;
-            border: none;
-            color: #6a11cb;
-            font-size: 1.4rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .audio-toggle:hover {
-            background: rgba(106, 17, 203, 0.2);
-            transform: scale(1.1);
-        }
-        
-        .audio-toggle.muted {
-            color: #666;
-        }
     </style>
 </head>
 <body>
-    <!-- Controles de áudio -->
-    <div class="audio-controls">
-        <button id="audio-toggle" class="audio-toggle" title="Ativar/Desativar efeitos sonoros">
-            <i class="fas fa-volume-up"></i>
-        </button>
-    </div>
-    
     <!-- Notificação de compradores em tempo real -->
     <div class="purchase-notification" id="purchase-notification">
         <img src="" alt="Comprador" class="buyer-avatar" id="buyer-avatar">
@@ -868,6 +888,68 @@
                 </a>
             </div>
             
+            <!-- NOVO CARD: Pack VIP DJ R$15,00 -->
+            <div class="pack-card">
+                <div class="pack-header" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
+                    <div class="pack-title">PACK VIP DJ</div>
+                    <div class="pack-price">R$15,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Conteúdo premium para DJs! Pagamento único sem mensalidades!</p>
+                    <ul class="features-list">
+                        <li>+4 Terabytes de músicas</li>
+                        <li>+2 Terabytes de efeitos sonoros</li>
+                        <li>Repertórios atualizados</li>
+                        <li>Videoclipes e softwares para DJ</li>
+                        <li>Packs para academia</li>
+                        <li>Pack Gospel Profissional</li>
+                        <li>Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)</li>
+                        <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
+                        <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
+                        <li>100% Hospedado no Telegram</li>
+                        <li>Atualizações constantes no grupo VIP</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe os links no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/17680190626966988446485333318827" class="buy-btn" target="_blank" style="background: linear-gradient(to right, #9c27b0, #673ab7);">
+                    <i class="fas fa-star"></i> COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- NOVO CARD: Pack Light DJ R$8,00 -->
+            <div class="pack-card">
+                <div class="pack-header" style="background: linear-gradient(135deg, #00bcd4, #2196f3);">
+                    <div class="pack-title">PACK LIGHT DJ</div>
+                    <div class="pack-price">R$8,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Conteúdo essencial para DJs iniciantes! Pagamento único sem mensalidades!</p>
+                    <ul class="features-list">
+                        <li>+2 Terabytes de músicas</li>
+                        <li>+2 Terabytes de efeitos sonoros</li>
+                        <li>Repertórios atualizados</li>
+                        <li>Videoclipes e softwares para DJ</li>
+                        <li>Packs para academia</li>
+                        <li>Pack Gospel Profissional</li>
+                        <li>Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)</li>
+                        <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
+                        <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
+                        <li>100% Hospedado no Telegram</li>
+                        <li>Atualizações constantes no grupo VIP</li>
+                    </ul>
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe os links no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/1767960342624410684402286990514" class="buy-btn" target="_blank" style="background: linear-gradient(to right, #00bcd4, #2196f3);">
+                    <i class="fas fa-bolt"></i> COMPRAR AGORA
+                </a>
+            </div>
+            
             <!-- NOVO CARD: Atualize seu Pendrive R$3,99 -->
             <div class="pack-card">
                 <div class="pack-header">
@@ -879,7 +961,7 @@
                     <ul class="features-list">
                         <li>Mais de 25 mil músicas</li>
                         <li>Mais de 30 ritmos diferentes</li>
-                        <li>Músicas atualizadas 2024/2025</li>
+                        <li>Músicas atualizadas</li>
                         <li>Sem vinhetas entre as faixas</li>
                         <li>Organização por pastas</li>
                         <li>Pronto para usar em qualquer aparelho</li>
@@ -907,7 +989,7 @@
                     <ul class="features-list">
                         <li>Mais de 35 mil músicas atualizadas</li>
                         <li>Mais de 30 ritmos diferentes</li>
-                        <li>Músicas atualizadas 2024/2025</li>
+                        <li>Músicas atualizadas</li>
                         <li>Sem vinhetas entre as faixas</li>
                         <li>Organização por pastas</li>
                         <li>Pronto para usar em qualquer aparelho</li>
@@ -993,7 +1075,7 @@
                         <li>Reggae</li>
                         <li>E muito mais!</li>
                         <li>100% Hospedado no Telegram</li>
-                        <li>Atualizações constantes</li>
+                        <li></li>
                         <li>Pagamento único sem mensalidades!</li>
                     </ul>
                     <div class="payment-note">
@@ -1187,10 +1269,14 @@
             </div>
         </div>
         
+        <!-- Botão VIP Telegram no final da página -->
+        <a href="https://t.me/+xcMUpCNGNoI3NDUx" class="telegram-vip-button" target="_blank">
+            <i class="fab fa-telegram"></i> CLIQUE AQUI PARA ENTRAR NO GRUPO VIP TELEGRAM
+        </a>
+        
         <footer>
             <p>Mundo Store Packs &copy; <span id="current-year">2026</span> - Todos os direitos reservados</p>
             <p>Conteúdo 100% hospedado no Telegram | Atualizações constantes | Pagamento único sem mensalidades</p>
-            <p>Contato: mundostorepacks@email.com</p>
         </footer>
     </div>
     
@@ -1198,6 +1284,12 @@
     <div class="floating-buttons">
         <a href="https://mundodj.erby.site/product/1767910962272667014988097183113033088" class="floating-btn main" target="_blank">
             <i class="fas fa-crown"></i> PACK PRO - R$30
+        </a>
+        <a href="https://mundodj.erby.site/product/17680190626966988446485333318827" class="floating-btn vip-btn" target="_blank">
+            <i class="fas fa-star"></i> PACK VIP - R$15
+        </a>
+        <a href="https://mundodj.erby.site/product/1767960342624410684402286990514" class="floating-btn light-btn" target="_blank">
+            <i class="fas fa-bolt"></i> PACK LIGHT - R$8
         </a>
         <a href="https://mundodj.erby.site/product/1767315685983988143903314326" class="floating-btn pendrive-low-price" target="_blank">
             <i class="fas fa-usb"></i> PENDRIVE - R$3,99
@@ -1240,8 +1332,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Elementos DOM
-            const audioToggle = document.getElementById('audio-toggle');
-            const audioIcon = audioToggle.querySelector('i');
             const scrollIndicator = document.getElementById('scroll-indicator');
             const currentYearSpan = document.getElementById('current-year');
             const particlesContainer = document.getElementById('particles');
@@ -1257,6 +1347,8 @@
             const states = ['SP', 'RJ', 'MG', 'RS', 'PR', 'SC', 'BA', 'PE', 'CE', 'DF'];
             const packs = [
                 { name: 'PACK PRO DJ 2026', price: 'R$30,00' },
+                { name: 'PACK VIP DJ', price: 'R$15,00' },
+                { name: 'PACK LIGHT DJ', price: 'R$8,00' },
                 { name: 'ATUALIZE SEU PENDRIVE R$3,99', price: 'R$3,99' },
                 { name: 'ATUALIZE SEU PENDRIVE 35K', price: 'R$5,00' },
                 { name: 'ELITE FITNESS', price: 'R$5,00' },
@@ -1400,82 +1492,6 @@
                 }
             }
             
-            // Estado do áudio
-            let isAudioEnabled = true;
-            let isPlaying = false;
-            let scrollTimeout;
-            let lastScrollTime = 0;
-            const SCROLL_COOLDOWN = 2500;
-            
-            // Criar elemento de áudio
-            const audio = new Audio();
-            
-            // URLs de efeitos sonoros
-            const audioUrls = [
-                'https://assets.mixkit.co/active_storage/sfx/201/201-preview.mp3',
-                'https://assets.mixkit.co/active_storage/sfx/284/284-preview.mp3',
-                'https://assets.mixkit.co/active_storage/sfx/257/257-preview.mp3'
-            ];
-            
-            // Carregar áudio
-            audio.src = audioUrls[0];
-            audio.volume = 0.15;
-            audio.preload = 'auto';
-            
-            // Função para tocar efeito sonoro com ponto aleatório
-            function playScrollSound() {
-                if (!isAudioEnabled || isPlaying) return;
-                
-                const now = Date.now();
-                if (now - lastScrollTime < SCROLL_COOLDOWN) return;
-                
-                if (audio.duration && audio.duration > 2) {
-                    const randomStart = Math.random() * (audio.duration * 0.8);
-                    audio.currentTime = randomStart;
-                }
-                
-                audio.play().then(() => {
-                    isPlaying = true;
-                    lastScrollTime = now;
-                    
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        audio.pause();
-                        isPlaying = false;
-                    }, 3000);
-                }).catch(error => {
-                    console.log('Erro ao reproduzir áudio:', error);
-                    isAudioEnabled = false;
-                    audioToggle.classList.add('muted');
-                    audioIcon.className = 'fas fa-volume-mute';
-                });
-            }
-            
-            // Controle de áudio
-            audioToggle.addEventListener('click', function() {
-                isAudioEnabled = !isAudioEnabled;
-                
-                if (isAudioEnabled) {
-                    audioToggle.classList.remove('muted');
-                    audioIcon.className = 'fas fa-volume-up';
-                    audio.volume = 0;
-                    audio.play().then(() => {
-                        audio.pause();
-                        audio.currentTime = 0;
-                        audio.volume = 0.15;
-                    }).catch(() => {
-                        isAudioEnabled = false;
-                        audioToggle.classList.add('muted');
-                        audioIcon.className = 'fas fa-volume-mute';
-                    });
-                } else {
-                    audioToggle.classList.add('muted');
-                    audioIcon.className = 'fas fa-volume-mute';
-                    audio.pause();
-                    isPlaying = false;
-                }
-            });
-            
             // Detectar scroll
             let lastScrollTop = 0;
             let scrollThrottle;
@@ -1489,12 +1505,7 @@
                 if (!scrollThrottle) {
                     scrollThrottle = setTimeout(() => {
                         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        
-                        if (Math.abs(scrollTop - lastScrollTop) > 50) {
-                            playScrollSound();
-                            lastScrollTop = scrollTop;
-                        }
-                        
+                        lastScrollTop = scrollTop;
                         scrollThrottle = null;
                     }, 100);
                 }
@@ -1527,30 +1538,6 @@
                     observer.observe(card);
                 });
                 
-                // Efeito sonoro ao clicar nos botões
-                document.querySelectorAll('.buy-btn, .floating-btn').forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        if (isAudioEnabled) {
-                            const clickSound = new Audio();
-                            clickSound.src = 'https://assets.mixkit.co/active_storage/sfx/246/246-preview.mp3';
-                            clickSound.volume = 0.2;
-                            clickSound.play().catch(() => {});
-                        }
-                    });
-                });
-                
-                // Pré-carregar áudio
-                audio.load();
-                
-                // Verificar suporte a autoplay
-                audio.play().then(() => {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }).catch(() => {
-                    console.log('Autoplay de áudio bloqueado');
-                    audioToggle.title = 'Clique para ativar efeitos sonoros';
-                });
-                
                 // Iniciar notificações de compra (a cada 40 segundos)
                 setTimeout(generatePurchaseNotification, 5000); // Primeira após 5s
                 setInterval(generatePurchaseNotification, 40000); // Depois a cada 40s
@@ -1562,15 +1549,6 @@
             
             // Inicializar página
             initPage();
-            
-            // Adicionar tratamento de erro para o áudio
-            audio.addEventListener('error', function(e) {
-                console.log('Erro ao carregar áudio principal:', e);
-                if (this.src !== audioUrls[1]) {
-                    this.src = audioUrls[1];
-                    this.load();
-                }
-            });
         });
     </script>
 </body>
