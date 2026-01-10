@@ -158,6 +158,131 @@
             font-size: 1.4rem;
         }
         
+        /* Botão de aviso */
+        .warning-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto 30px;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+        
+        .warning-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.6);
+            letter-spacing: 0.8px;
+        }
+        
+        .warning-button i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Modal de aviso */
+        .warning-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .warning-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .warning-modal-content {
+            background: rgba(20, 15, 35, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid #ff9800;
+            box-shadow: 0 20px 50px rgba(255, 152, 0, 0.3);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .warning-modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 152, 0, 0.3);
+        }
+        
+        .warning-modal-header i {
+            color: #ff9800;
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        .warning-modal-header h2 {
+            font-size: 1.8rem;
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .warning-modal-body {
+            color: #ddd;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        .warning-modal-body p {
+            margin-bottom: 15px;
+        }
+        
+        .warning-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            color: #ff9800;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .warning-modal-close:hover {
+            background: rgba(255, 152, 0, 0.4);
+            transform: rotate(90deg);
+        }
+        
         .packs-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -285,6 +410,46 @@
             font-size: 1.2rem;
         }
         
+        /* Aviso de Telegram (REMOVIDO DE TODOS OS CARDS) */
+        /* .telegram-warning {
+            background: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            color: #ffcc80;
+        }
+        
+        .telegram-warning strong {
+            color: #ff9800;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        } */
+        
+        /* Aviso de Nuvem */
+        .cloud-warning {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            color: #90caf9;
+        }
+        
+        .cloud-warning strong {
+            color: #2196f3;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
         .buy-btn {
             position: absolute;
             bottom: 0;
@@ -315,6 +480,21 @@
         
         .pack-card.featured .buy-btn:hover {
             background: linear-gradient(to right, #e60073, #e67e00);
+        }
+        
+        .payment-note {
+            background: rgba(0, 200, 83, 0.1);
+            border-left: 4px solid #00c853;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 0 5px 5px 0;
+            border: 1px solid rgba(0, 200, 83, 0.2);
+            font-size: 0.95rem;
+        }
+        
+        .payment-note i {
+            color: #00c853;
+            margin-right: 10px;
         }
         
         /* Botões flutuantes menores */
@@ -614,20 +794,6 @@
             border-radius: 20px 20px 0 0;
         }
         
-        .payment-note {
-            background: rgba(0, 200, 83, 0.1);
-            border-left: 4px solid #00c853;
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 0 5px 5px 0;
-            border: 1px solid rgba(0, 200, 83, 0.2);
-        }
-        
-        .payment-note i {
-            color: #00c853;
-            margin-right: 10px;
-        }
-        
         /* Botão VIP Telegram no final da página */
         .telegram-vip-button {
             display: block;
@@ -734,6 +900,21 @@
                 font-size: 1.2rem;
                 margin: 30px auto 15px;
             }
+            
+            .warning-button {
+                max-width: 350px;
+                padding: 14px 18px;
+                font-size: 1rem;
+            }
+            
+            .warning-modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .warning-modal-header h2 {
+                font-size: 1.5rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -787,6 +968,20 @@
                 padding: 16px 20px;
                 font-size: 1.1rem;
                 margin: 25px auto 10px;
+            }
+            
+            .warning-button {
+                max-width: 300px;
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+            
+            .warning-modal-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .warning-modal-body {
+                font-size: 1rem;
             }
         }
         
@@ -846,6 +1041,32 @@
         </div>
     </div>
     
+    <!-- Modal de Aviso -->
+    <div class="warning-modal" id="warning-modal">
+        <div class="warning-modal-content">
+            <div class="warning-modal-close" id="warning-modal-close">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="warning-modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>⚠️ AVISO IMPORTANTE</h2>
+            </div>
+            <div class="warning-modal-body">
+                <p><strong>⚠️ AVISO IMPORTANTE</strong></p>
+                <p>Todos os Grupos têm uma chance de ser banido ou removido a qualquer momento devido a reivindicações de direitos autorais.</p>
+                <p>Caso isso aconteça, não nos responsabilizamos por perdas de acesso.</p>
+                <p>Recomendamos que todos baixem o conteúdo assim que entrar no grupo.</p>
+                <p>Para que você fique despreocupado nós pagamos a conta Premium (Paga) e só lançamos as músicas compactadas que evita o bloqueio!</p>
+                <p><strong>TODOS NOSSOS GRUPOS ESTÃO ONLINE A MAIS DE 5 ANOS SEM RISCOS!</strong></p>
+                <p>Somos transparente, se comprar fica o alerta que há risco!</p>
+                <br>
+                <p><strong>LEMBRANDO QUE HÁ CHANCE DO GOVERNO REGULAMENTAR A INTERNET, E NÃO SABEMOS SE O TELEGRAM SERÁ UM DELES! INFELIZMENTE NEM TUDO SÃO ROSAS!!</strong></p>
+                <br>
+                <p><strong>OBRIGADO PELA ATENÇÃO!</strong></p>
+            </div>
+        </div>
+    </div>
+    
     <!-- Efeito de scroll visual -->
     <div class="scroll-effect" id="scroll-indicator"></div>
     
@@ -863,6 +1084,11 @@
             <h1>Mundo Store Packs</h1>
             <p class="subtitle">Atualize seu pendrive e packs para DJ com conteúdo premium!</p>
             <p class="subtitle">Nossos packs estão hospedados no <span class="highlight">Telegram</span> (não é Media Fire e nem Google Drive)!</p>
+            
+            <!-- Botão de Aviso -->
+            <button class="warning-button" id="warning-button">
+                <i class="fas fa-exclamation-triangle"></i> POR FAVOR CLICK AQUI PARA LER NOSSO AVISO!
+            </button>
             
             <div class="telegram-note">
                 <i class="fab fa-telegram"></i>
@@ -893,6 +1119,9 @@
                         <li>100% Hospedado no Telegram</li>
                         <li>Atualizações constantes no grupo VIP</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe os links no seu email!</span>
@@ -924,6 +1153,9 @@
                         <li>100% Hospedado no Telegram</li>
                         <li>Atualizações constantes no grupo VIP</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe os links no seu email!</span>
@@ -955,6 +1187,9 @@
                         <li>100% Hospedado no Telegram</li>
                         <li>Atualizações constantes no grupo VIP</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe os links no seu email!</span>
@@ -983,6 +1218,13 @@
                         <li>Formato MP3 de alta qualidade</li>
                         <li>Sem atualizações - conteúdo completo</li>
                     </ul>
+                    
+                    <div class="cloud-warning">
+                        <strong>⚠️ INFORMAÇÃO IMPORTANTE</strong>
+                        NÃO ESTÁ HOSPEDADO NO TELEGRAM! 
+                        VOCÊ BAIXA PELA NUVEM (GOOGLE DRIVE E MEDIA FIRE)
+                    </div>
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe o link no seu email!</span>
@@ -1011,6 +1253,13 @@
                         <li>Formato MP3 de alta qualidade</li>
                         <li>Sem atualizações - conteúdo completo</li>
                     </ul>
+                    
+                    <div class="cloud-warning">
+                        <strong>⚠️ INFORMAÇÃO IMPORTANTE</strong>
+                        NÃO ESTÁ HOSPEDADO NO TELEGRAM! 
+                        VOCÊ BAIXA PELA NUVEM (GOOGLE DRIVE E MEDIA FIRE)
+                    </div>
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe o link no seu email!</span>
@@ -1038,6 +1287,9 @@
                         <li>Tudo do mundo fitness</li>
                         <li>100% Hospedado no Telegram</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe o link no seu email!</span>
@@ -1064,6 +1316,9 @@
                         <li>Pack profissional para web rádio!</li>
                         <li>100% Hospedado no Telegram</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
                         <span>Após pagamento recebe o link no seu email!</span>
@@ -1090,12 +1345,14 @@
                         <li>Reggae</li>
                         <li>E muito mais!</li>
                         <li>100% Hospedado no Telegram</li>
-                        <li></li>
                         <li>Pagamento único sem mensalidades!</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
-                        <span>Apás pagamento recebe o link no seu email!</span>
+                        <span>Após pagamento recebe o link no seu email!</span>
                     </div>
                 </div>
                 <a href="https://mundodj.erby.site/product/17679118811859650184486821012071" class="buy-btn" target="_blank">
@@ -1123,9 +1380,12 @@
                         <li>Carnaval</li>
                         <li>100% Hospedado no Telegram</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
-                        <span>Apás pagamento recebe o link no seu email!</span>
+                        <span>Após pagamento recebe o link no seu email!</span>
                     </div>
                 </div>
                 <a href="https://mundodj.erby.site/product/176791224929513447481284312925" class="buy-btn" target="_blank">
@@ -1148,9 +1408,12 @@
                         <li>Cururu</li>
                         <li>100% Hospedado no Telegram</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
-                        <span>Apás pagamento recebe o link no seu email!</span>
+                        <span>Após pagamento recebe o link no seu email!</span>
                     </div>
                 </div>
                 <a href="https://mundodj.erby.site/product/176791274755722491971924661" class="buy-btn" target="_blank">
@@ -1174,9 +1437,12 @@
                         <li>Músicas regionais</li>
                         <li>100% Hospedado no Telegram</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
-                        <span>Apás pagamento recebe o link no seu email!</span>
+                        <span>Após pagamento recebe o link no seu email!</span>
                     </div>
                 </div>
                 <a href="https://mundodj.erby.site/product/176791325537466644165260349806" class="buy-btn" target="_blank">
@@ -1203,9 +1469,12 @@
                         <li>Acompanha aplicativo para rodar em Android, TV Box, PC</li>
                         <li>Tudo que conseguimos de jogos jogamos no grupo VIP!</li>
                     </ul>
+                    
+                    <!-- AVISO REMOVIDO -->
+                    
                     <div class="payment-note">
                         <i class="fas fa-envelope"></i>
-                        <span>Apás pagamento recebe os links no seu email!</span>
+                        <span>Após pagamento recebe os links no seu email!</span>
                     </div>
                 </div>
                 <a href="https://mundodj.erby.site/product/17680068611575726346485495" class="buy-btn" target="_blank">
@@ -1356,6 +1625,9 @@
             const buyerLocation = document.getElementById('buyer-location');
             const purchaseInfo = document.getElementById('purchase-info');
             const floatingButtons = document.getElementById('floating-buttons');
+            const warningButton = document.getElementById('warning-button');
+            const warningModal = document.getElementById('warning-modal');
+            const warningModalClose = document.getElementById('warning-modal-close');
             
             // Dados para notificações
             const maleNames = ['Carlos', 'João', 'Pedro', 'Lucas', 'Miguel', 'Rafael', 'Gabriel', 'Fernando', 'Roberto', 'Bruno'];
@@ -1521,6 +1793,17 @@
                 }
             }
             
+            // Controle do modal de aviso
+            function openWarningModal() {
+                warningModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeWarningModal() {
+                warningModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
             // Detectar scroll
             let lastScrollTop = 0;
             let scrollThrottle;
@@ -1565,6 +1848,22 @@
                 
                 packCards.forEach(card => {
                     observer.observe(card);
+                });
+                
+                // Event listeners para o modal de aviso
+                warningButton.addEventListener('click', openWarningModal);
+                warningModalClose.addEventListener('click', closeWarningModal);
+                warningModal.addEventListener('click', function(e) {
+                    if (e.target === warningModal) {
+                        closeWarningModal();
+                    }
+                });
+                
+                // Fechar modal com tecla ESC
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && warningModal.classList.contains('active')) {
+                        closeWarningModal();
+                    }
                 });
                 
                 // Iniciar notificações de compra (a cada 40 segundos)
