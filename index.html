@@ -83,6 +83,45 @@
             z-index: 1;
         }
         
+        /* Seção do vídeo */
+        .video-section {
+            text-align: center;
+            margin: 30px 0 40px;
+            padding: 20px;
+            background: rgba(20, 15, 35, 0.8);
+            border-radius: 20px;
+            border: 2px solid rgba(106, 17, 203, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+        
+        .video-wrapper iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 15px;
+        }
+        
         header {
             text-align: center;
             padding: 30px 0;
@@ -157,6 +196,41 @@
             margin-right: 10px;
             font-size: 1.4rem;
         }
+        
+        /* Botão de aviso - REMOVIDO */
+        /* .warning-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto 30px;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+        
+        .warning-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.6);
+            letter-spacing: 0.8px;
+        }
+        
+        .warning-button i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        } */
         
         /* Modal de aviso */
         .warning-modal {
@@ -373,6 +447,17 @@
             left: 0;
             font-weight: bold;
             font-size: 1.2rem;
+        }
+        
+        /* Estilo especial para itens importantes */
+        .features-list li.highlight-item {
+            color: #6a11cb;
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+        
+        .features-list li.highlight-item:before {
+            color: #ff0080;
         }
         
         /* Aviso de Nuvem */
@@ -783,6 +868,10 @@
             .testimonials-container {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
+            
+            .video-wrapper iframe {
+                height: 400px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -792,6 +881,14 @@
             
             .subtitle {
                 font-size: 1.1rem;
+            }
+            
+            .video-title {
+                font-size: 1.5rem;
+            }
+            
+            .video-wrapper iframe {
+                height: 350px;
             }
             
             .packs-container {
@@ -845,20 +942,19 @@
                 font-size: 1.2rem;
                 margin: 30px auto 15px;
             }
-            
-            .warning-modal-content {
-                padding: 20px;
-                width: 95%;
-            }
-            
-            .warning-modal-header h2 {
-                font-size: 1.5rem;
-            }
         }
         
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
+            }
+            
+            .video-title {
+                font-size: 1.3rem;
+            }
+            
+            .video-wrapper iframe {
+                height: 250px;
             }
             
             .pack-card {
@@ -907,10 +1003,6 @@
                 padding: 16px 20px;
                 font-size: 1.1rem;
                 margin: 25px auto 10px;
-            }
-            
-            .warning-modal-body {
-                font-size: 1rem;
             }
         }
         
@@ -1014,11 +1106,27 @@
             <p class="subtitle">Atualize seu pendrive e packs para DJ com conteúdo premium!</p>
             <p class="subtitle">Nossos packs estão hospedados no <span class="highlight">Telegram</span> (não é Media Fire e nem Google Drive)!</p>
             
+            <!-- Botão de Aviso REMOVIDO -->
+            
             <div class="telegram-note">
                 <i class="fab fa-telegram"></i>
                 <span>O <strong>PACK PRO DJ 2026 R$30,00</strong> tem todos os packs do site! 100% hospedado no Telegram! (As atualizações desse pack tudo que conseguimos de novo jogamos no grupo VIP Telegram)!</span>
             </div>
         </header>
+        
+        <!-- Seção do Vídeo com Autoplay -->
+        <div class="video-section">
+            <h2 class="video-title">🎬 ASSISTA AO NOSSO VÍDEO EXCLUSIVO!</h2>
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/cjkj7UjMuYg?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0&si=BsO7K6EyEyyFHoal" 
+                title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: 15px; color: #aaa; font-size: 1rem;">
+                🔥 <strong>Vídeo em reprodução automática com som habilitado!</strong> Ajuste o volume se necessário.
+            </p>
+        </div>
         
         <div class="packs-container">
             <!-- Pack 1: Pro DJ 2026 (FEATURED) -->
@@ -1040,8 +1148,8 @@
                         <li>Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)</li>
                         <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
                         <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
-                        <li>100% Hospedado no Telegram</li>
-                        <li>Atualizações constantes no grupo VIP</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
+                        <li class="highlight-item">✅ <strong>ATUALIZAÇÕES (TUDO QUE CONSEGUIMOS JOGAMOS NOS GRUPO)!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1074,8 +1182,8 @@
                         <li>Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)</li>
                         <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
                         <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
-                        <li>100% Hospedado no Telegram</li>
-                        <li>Atualizações constantes no grupo VIP</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
+                        <li class="highlight-item">✅ <strong>ATUALIZAÇÕES (TUDO QUE CONSEGUIMOS JOGAMOS NOS GRUPO)!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1108,8 +1216,8 @@
                         <li>Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)</li>
                         <li>Pack Funk (Light, Megafunk, Eletrofunk, etc)</li>
                         <li>Pack para festas (Casamento, 15 anos, Formaturas, etc)</li>
-                        <li>100% Hospedado no Telegram</li>
-                        <li>Atualizações constantes no grupo VIP</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
+                        <li class="highlight-item">✅ <strong>ATUALIZAÇÕES (TUDO QUE CONSEGUIMOS JOGAMOS NOS GRUPO)!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1209,7 +1317,7 @@
                         <li>Zumba</li>
                         <li>Capoeira</li>
                         <li>Tudo do mundo fitness</li>
-                        <li>100% Hospedado no Telegram</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1238,7 +1346,7 @@
                         <li>Músicas para adoração</li>
                         <li>Videoclipes e muito mais!</li>
                         <li>Pack profissional para web rádio!</li>
-                        <li>100% Hospedado no Telegram</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1268,7 +1376,7 @@
                         <li>Dance antigos</li>
                         <li>Reggae</li>
                         <li>E muito mais!</li>
-                        <li>100% Hospedado no Telegram</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
                         <li>Pagamento único sem mensalidades!</li>
                     </ul>
                     
@@ -1302,7 +1410,7 @@
                         <li>Reveillon</li>
                         <li>Festa Junina</li>
                         <li>Carnaval</li>
-                        <li>100% Hospedado no Telegram</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1330,7 +1438,7 @@
                         <li>Sertanejo raiz</li>
                         <li>Músicas caipiras</li>
                         <li>Cururu</li>
-                        <li>100% Hospedado no Telegram</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1359,7 +1467,7 @@
                         <li>Sertanejo</li>
                         <li>MPB</li>
                         <li>Músicas regionais</li>
-                        <li>100% Hospedado no Telegram</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1389,9 +1497,9 @@
                         <li><strong>Coleção Multiplataforma</strong> - PSP, Game Boy Color, Master System, Atari 2600, Mega Drive, Nintendinho</li>
                         <li><strong>Dreamcast</strong> - Mais de 400 ROMs</li>
                         <li><strong>Jogos Retro para PC</strong> - Warcraft, CS 1.6, Diablo 2, Half Life 2, Far Cry 1, Resident Evil e muito mais!</li>
-                        <li>100% Hospedado no Telegram - Baixe quando quiser!</li>
+                        <li class="highlight-item">✅ <strong>100% HOSPEDADO NO TELEGRAM - BAIXE QUANDO QUISER!</strong></li>
                         <li>Acompanha aplicativo para rodar em Android, TV Box, PC</li>
-                        <li>Tudo que conseguimos de jogos jogamos no grupo VIP!</li>
+                        <li class="highlight-item">✅ <strong>ATUALIZAÇÕES (TUDO QUE CONSEGUIMOS JOGAMOS NOS GRUPO)!</strong></li>
                     </ul>
                     
                     <!-- AVISO REMOVIDO -->
@@ -1481,6 +1589,13 @@
         <a href="https://t.me/+xcMUpCNGNoI3NDUx" class="telegram-vip-button" target="_blank">
             <i class="fab fa-telegram"></i> CLIQUE AQUI PARA ENTRAR NO GRUPO VIP TELEGRAM
         </a>
+        
+        <!-- Botão VIP WhatsApp no final da página -->
+        <div style="text-align: center; margin: 40px 0 20px;">
+            <a href="https://chat.whatsapp.com/EyUdzh98eqc4mPFGMO7O4o" class="telegram-vip-button" target="_blank" style="background: linear-gradient(135deg, #25D366, #128C7E);">
+                <i class="fab fa-whatsapp"></i> CLIQUE AQUI PARA ENTRAR NO GRUPO VIP WHATSAPP
+            </a>
+        </div>
         
         <footer>
             <p>Mundo Store Packs &copy; <span id="current-year">2026</span> - Todos os direitos reservados</p>
@@ -1717,6 +1832,11 @@
             }
             
             // Controle do modal de aviso
+            function openWarningModal() {
+                warningModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
             function closeWarningModal() {
                 warningModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -1768,7 +1888,7 @@
                     observer.observe(card);
                 });
                 
-                // Event listeners para o modal de aviso (apenas fechar)
+                // Event listeners para o modal de aviso (mantido caso queira abrir de outra forma)
                 warningModalClose.addEventListener('click', closeWarningModal);
                 warningModal.addEventListener('click', function(e) {
                     if (e.target === warningModal) {
