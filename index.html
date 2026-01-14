@@ -83,45 +83,6 @@
             z-index: 1;
         }
         
-        /* Seção do vídeo */
-        .video-section {
-            text-align: center;
-            margin: 30px 0 40px;
-            padding: 20px;
-            background: rgba(20, 15, 35, 0.8);
-            border-radius: 20px;
-            border: 2px solid rgba(106, 17, 203, 0.5);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-        
-        .video-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: bold;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-        }
-        
-        .video-wrapper iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-            border-radius: 15px;
-        }
-        
         header {
             text-align: center;
             padding: 30px 0;
@@ -632,11 +593,11 @@
             50% { transform: translateY(-8px); }
         }
         
-        /* Notificações de compradores - LADO ESQUERDO */
+        /* Notificações de compradores - AGORA NO LADO ESQUERDO */
         .purchase-notification {
             position: fixed;
             top: 80px;
-            left: 20px;
+            left: 20px; /* Mudado de right para left */
             background: rgba(20, 15, 35, 0.95);
             border-radius: 12px;
             padding: 12px 15px;
@@ -648,13 +609,13 @@
             backdrop-filter: blur(10px);
             z-index: 999;
             max-width: 280px;
-            transform: translateX(-400px);
+            transform: translateX(-400px); /* Mudado para negativo (esquerda) */
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(106, 17, 203, 0.3);
         }
         
         .purchase-notification.show {
-            transform: translateX(0);
+            transform: translateX(0); /* Aparece normalmente */
         }
         
         .buyer-avatar {
@@ -868,10 +829,6 @@
             .testimonials-container {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
-            
-            .video-wrapper iframe {
-                height: 400px;
-            }
         }
         
         @media (max-width: 768px) {
@@ -881,14 +838,6 @@
             
             .subtitle {
                 font-size: 1.1rem;
-            }
-            
-            .video-title {
-                font-size: 1.5rem;
-            }
-            
-            .video-wrapper iframe {
-                height: 350px;
             }
             
             .packs-container {
@@ -922,10 +871,16 @@
                 font-size: 2.4rem;
             }
             
+            /* Notificações no mobile - centralizadas no topo */
             .purchase-notification {
                 top: 70px;
-                left: 10px;
+                left: 50%; /* Centralizada no mobile */
+                transform: translateX(-50%) translateY(-100px); /* Centralizada e acima */
                 max-width: 250px;
+            }
+            
+            .purchase-notification.show {
+                transform: translateX(-50%) translateY(0); /* Desce para posição */
             }
             
             .testimonials-container {
@@ -947,14 +902,6 @@
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
-            }
-            
-            .video-title {
-                font-size: 1.3rem;
-            }
-            
-            .video-wrapper iframe {
-                height: 250px;
             }
             
             .pack-card {
@@ -987,7 +934,12 @@
             .purchase-notification {
                 max-width: 220px;
                 padding: 10px 12px;
-                left: 10px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-100px);
+            }
+            
+            .purchase-notification.show {
+                transform: translateX(-50%) translateY(0);
             }
             
             .buyer-avatar {
@@ -1051,7 +1003,7 @@
     </style>
 </head>
 <body>
-    <!-- Notificação de compradores em tempo real -->
+    <!-- Notificação de compradores em tempo real - AGORA NO LADO ESQUERDO -->
     <div class="purchase-notification" id="purchase-notification">
         <img src="" alt="Comprador" class="buyer-avatar" id="buyer-avatar">
         <div class="buyer-info">
@@ -1115,20 +1067,6 @@
                 <span>O <strong>PACK PRO DJ E O PACK PREMIUM É UM DOS PACKS MAIS COMPLETO DO SITE! ESSES PACK TEM TODOS OS PACKS!! ATENÇÃO OS PACK PROFISSIONAL ESTÃO 100% HOSPEDADOS NO TELEGRAM! NÃO É GOOGLE DRIVE OU MEDIA FIRE!</strong></span>
             </div>
         </header>
-        
-        <!-- Seção do Vídeo com Autoplay -->
-        <div class="video-section">
-            <h2 class="video-title">🎬 ASSISTA AO NOSSO VÍDEO EXCLUSIVO!</h2>
-            <div class="video-wrapper">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/cjkj7UjMuYg?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0&si=BsO7K6EyEyyFHoal" 
-                title="YouTube video player" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen></iframe>
-            </div>
-            <p style="margin-top: 15px; color: #aaa; font-size: 1rem;">
-                🔥 <strong>Vídeo em reprodução automática com som habilitado!</strong> Ajuste o volume se necessário.
-            </p>
-        </div>
         
         <div class="packs-container">
             <!-- Pack Premium DJ 2026 (FEATURED) -->
@@ -1266,6 +1204,41 @@
                 </div>
                 <a href="https://mundodj.erby.site/product/1767960342624410684402286990514" class="buy-btn" target="_blank" style="background: linear-gradient(to right, #00bcd4, #2196f3);">
                     <i class="fas fa-bolt"></i> COMPRAR AGORA
+                </a>
+            </div>
+            
+            <!-- NOVO CARD: Pack Start R$2,00 -->
+            <div class="pack-card">
+                <div class="pack-header" style="background: linear-gradient(135deg, #ff9800, #ff5722);">
+                    <div class="pack-title">PACK START R$2,00</div>
+                    <div class="pack-price">R$2,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Mais de 25 mil músicas atualizadas para seu pendrive!</p>
+                    <ul class="features-list">
+                        <li>Mais de 5 mil músicas</li>
+                        <li>Mais de 30 ritmos diferentes</li>
+                        <li>Músicas atualizadas</li>
+                        <li>Sem vinhetas</li>
+                        <li>Organização por pastas</li>
+                        <li>Pronto para usar em qualquer aparelho</li>
+                        <li>Formato MP3 de alta qualidade</li>
+                        <li>Sem atualizações - conteúdo completo</li>
+                    </ul>
+                    
+                    <div class="cloud-warning">
+                        <strong>⚠️ INFORMAÇÃO IMPORTANTE</strong>
+                        NÃO ESTÁ HOSPEDADO NO TELEGRAM! 
+                        VOCÊ BAIXA PELA NUVEM (GOOGLE DRIVE E MEDIA FIRE)
+                    </div>
+                    
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/1767494757635494094180923276762" class="buy-btn" target="_blank" style="background: linear-gradient(to right, #ff9800, #ff5722);">
+                    <i class="fas fa-rocket"></i> CLICK AQUI PARA COMPRAR PACK START R$2,00!
                 </a>
             </div>
             
@@ -1550,6 +1523,39 @@
                     <i class="fas fa-gamepad"></i> CLICK AQUI PARA COMPRAR
                 </a>
             </div>
+            
+            <!-- NOVO CARD: Técnico em Informática R$35,00 -->
+            <div class="pack-card">
+                <div class="pack-header" style="background: linear-gradient(135deg, #607d8b, #455a64);">
+                    <div class="pack-title">TÉCNICO EM INFORMÁTICA</div>
+                    <div class="pack-price">R$35,00</div>
+                </div>
+                <div class="pack-content">
+                    <p class="pack-description">Kit completo para técnicos em informática! Na compra ganha Pack Jogos Retro!</p>
+                    <ul class="features-list">
+                        <li><strong>SOFTWARES</strong> - Utilitários e ferramentas essenciais</li>
+                        <li><strong>SISTEMA OPERACIONAL</strong> - Diversas versões</li>
+                        <li><strong>OFFICE</strong> - Pacote Office completo</li>
+                        <li><strong>ATIVAÇÃO</strong> - Ferramentas de ativação</li>
+                        <li><strong>E MUITO MAIS!</strong> - Tudo que um técnico precisa</li>
+                        <li class="highlight-item">🎁 <strong>NA COMPRA GANHA PACK JOGOS RETRO!</strong></li>
+                    </ul>
+                    
+                    <div class="cloud-warning">
+                        <strong>⚠️ INFORMAÇÃO IMPORTANTE</strong>
+                        NÃO ESTÁ HOSPEDADO NO TELEGRAM! 
+                        VOCÊ BAIXA PELA NUVEM (GOOGLE DRIVE E MEDIA FIRE)
+                    </div>
+                    
+                    <div class="payment-note">
+                        <i class="fas fa-envelope"></i>
+                        <span>Após pagamento recebe o link no seu email!</span>
+                    </div>
+                </div>
+                <a href="https://mundodj.erby.site/product/1759169104946386157438892370535" class="buy-btn" target="_blank" style="background: linear-gradient(to right, #607d8b, #455a64);">
+                    <i class="fas fa-laptop-code"></i> CLICK AQUI PARA COMPRAR KIT TÉCNICO + JOGOS R$35,00!
+                </a>
+            </div>
         </div>
         
         <!-- Seção de depoimentos -->
@@ -1654,6 +1660,9 @@
         <a href="https://mundodj.erby.site/product/1767960342624410684402286990514" class="floating-btn light-btn" target="_blank">
             <i class="fas fa-bolt"></i> PACK LIGHT - R$8
         </a>
+        <a href="https://mundodj.erby.site/product/1767494757635494094180923276762" class="floating-btn" target="_blank" style="background: linear-gradient(135deg, #ff9800, #ff5722);">
+            <i class="fas fa-rocket"></i> PACK START - R$2
+        </a>
         <a href="https://mundodj.erby.site/product/1767315685983988143903314326" class="floating-btn pendrive-low-price" target="_blank">
             <i class="fas fa-usb"></i> PENDRIVE - R$3,99
         </a>
@@ -1662,6 +1671,9 @@
         </a>
         <a href="https://mundodj.erby.site/product/17680068611575726346485495" class="floating-btn" target="_blank" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
             <i class="fas fa-gamepad"></i> JOGOS RETRO - R$10
+        </a>
+        <a href="https://mundodj.erby.site/product/1759169104946386157438892370535" class="floating-btn" target="_blank" style="background: linear-gradient(135deg, #607d8b, #455a64);">
+            <i class="fas fa-laptop-code"></i> TÉCNICO - R$35
         </a>
         <a href="https://mundodj.erby.site/product/176767417522739513473889359323" class="floating-btn" target="_blank" style="background: linear-gradient(135deg, #e91e63, #ff4081);">
             <i class="fas fa-fire"></i> VIP HOT - R$10
@@ -1716,8 +1728,10 @@
                 { name: 'PACK PRO DJ 2026', price: 'R$30,00' },
                 { name: 'PACK VIP DJ', price: 'R$15,00' },
                 { name: 'PACK LIGHT DJ', price: 'R$8,00' },
+                { name: 'PACK START R$2,00', price: 'R$2,00' },
                 { name: 'ATUALIZE SEU PENDRIVE R$3,99', price: 'R$3,99' },
                 { name: 'ATUALIZE SEU PENDRIVE 35K', price: 'R$5,00' },
+                { name: 'TÉCNICO EM INFORMÁTICA', price: 'R$35,00' },
                 { name: 'ELITE FITNESS', price: 'R$5,00' },
                 { name: 'PACK GOSPEL PRO', price: 'R$5,00' },
                 { name: 'PACK DJ RETRO', price: 'R$5,00' },
