@@ -3207,14 +3207,20 @@
         }
     </script>
     
-    <!-- Script de notificação do Telegram CORRIGIDO -->
+    <!-- SISTEMA DE NOTIFICAÇÕES TELEGRAM CORRIGIDO -->
     <script>
-        // Configurações do seu bot
+        // Configurações do bot - SEU BOT ESTÁ FUNCIONANDO
         const BOT_TOKEN = '8560103571:AAE8sFKUg-gZWwWA3W8QDOEKUMhcrJL6BrI';
-        // IMPORTANTE: O chat_id 8560103571 parece ser o mesmo ID do bot, não do seu usuário
-        // Você precisa descobrir seu chat_id real. Envie uma mensagem para @userinfobot no Telegram
         
-        // Função para obter o IP do visitante
+        // IMPORTANTE: VOCÊ PRECISA DESCOBRIR SEU CHAT_ID REAL!
+        // 1. Vá no Telegram
+        // 2. Procure por @userinfobot
+        // 3. Ele mostrará seu chat_id real
+        // 4. Substitua o valor abaixo pelo seu chat_id
+        
+        const YOUR_CHAT_ID = '5549483317'; // ← ALTERE ESTE VALOR!
+        
+        // Função para obter IP do visitante
         async function getVisitorIP() {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
@@ -3225,241 +3231,266 @@
             }
         }
         
-        // Função para enviar notificação ao Telegram
-        async function sendTelegramNotification() {
+        // Função principal para enviar notificações
+        async function sendTelegramNotification(type = 'visita', product = null) {
             try {
-                // Primeiro, vamos descobrir seu chat_id real
-                // Tente estas opções (substitua com seu chat_id real quando descobrir):
-                const possibleChatIds = [5549483317]
-                    '5549483317', // Este é provavelmente o ID do bot, não do usuário
-                    // Adicione seu chat_id real aqui quando descobrir
-                ];
-                
                 const ip = await getVisitorIP();
                 const now = new Date();
                 const visitTime = now.toLocaleString('pt-BR');
-                const userAgent = navigator.userAgent;
+                const userAgent = navigator.userAgent.substring(0, 100);
+                const platform = navigator.platform;
+                const pageUrl = window.location.href;
+                const referrer = document.referrer || 'Direto';
                 
-                // Mensagem detalhada
-                const message = `
-🔔 *NOVA VISITA DETECTADA* 🔔
+                let message = '';
+                
+                if (type === 'visita') {
+                    message = `
+🎯 *NOVA VISITA DETECTADA* 🎯
 
 📅 *Data/Hora:* ${visitTime}
 📍 *IP do Visitante:* ${ip}
-🌐 *Navegador:* ${userAgent.substring(0, 100)}...
-📱 *Dispositivo:* ${navigator.platform}
-🔗 *Página:* ${window.location.href}
+🌐 *Navegador:* ${userAgent}
+📱 *Dispositivo:* ${platform}
+🔗 *Página:* ${pageUrl}
+🔍 *Origem:* ${referrer}
 
-⚡ *Ação Recomendada:* Verifique seus acessos!
-                `;
-                
-                // Tentar enviar para cada possível chat_id
-                for (const chatId of possibleChatIds) {
-                    try {
-                        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                        
-                        const params = new URLSearchParams({
-                            chat_id: chatId,
-                            text: message,
-                            parse_mode: 'Markdown'
-                        });
-                        
-                        const response = await fetch(url, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: params
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (data.ok) {
-                            console.log('✅ Notificação enviada com sucesso para chat_id:', chatId);
-                            // Salvar que já enviou hoje
-                            localStorage.setItem('lastTelegramNotification', Date.now().toString());
-                            return true;
-                        } else {
-                            console.warn('❌ Não foi possível enviar para chat_id:', chatId, data);
-                        }
-                    } catch (error) {
-                        console.error('Erro ao enviar para chat_id', chatId, error);
-                    }
+👤 *Status:* Visitante acessando o site
+                    `;
+                } else if (type === 'clique') {
+                    message = `
+🛒 *CLIQUE EM COMPRAR* 🛒
+
+📦 *Produto:* ${product}
+📍 *IP:* ${ip}
+📅 *Hora:* ${now.toLocaleTimeString('pt-BR')}
+🔗 *Página:* ${pageUrl}
+
+💰 *Ação:* Possível cliente interessado!
+                    `;
+                } else if (type === 'roleta') {
+                    message = `
+🎰 *ROULETA - GANHADOR!* 🎰
+
+🎁 *Prêmio:* ${product}
+📍 *IP:* ${ip}
+📅 *Hora:* ${now.toLocaleTimeString('pt-BR')}
+
+⚡ *Status:* Usuário ganhou na roleta!
+                    `;
                 }
                 
-                console.warn('❌ Não foi possível enviar notificação para nenhum chat_id');
-                return false;
+                // URL da API do Telegram
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                
+                // Parâmetros da mensagem
+                const params = new URLSearchParams({
+                    chat_id: YOUR_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                });
+                
+                console.log('📤 Enviando para chat_id:', YOUR_CHAT_ID);
+                
+                // Enviar requisição
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params
+                });
+                
+                const data = await response.json();
+                
+                if (data.ok) {
+                    console.log('✅ Notificação enviada com sucesso!');
+                    console.log('📨 Mensagem ID:', data.result.message_id);
+                    return true;
+                } else {
+                    console.error('❌ Erro ao enviar:', data);
+                    if (data.description) {
+                        console.error('Descrição:', data.description);
+                        
+                        // Dicas baseadas no erro
+                        if (data.description.includes('chat not found')) {
+                            console.error('💡 CHAT_ID INCORRETO! Use @userinfobot para descobrir seu chat_id real.');
+                        } else if (data.description.includes('bot was blocked')) {
+                            console.error('💡 BOT BLOQUEADO! Desbloqueie o bot no Telegram.');
+                        }
+                    }
+                    return false;
+                }
                 
             } catch (error) {
-                console.error('❌ Erro ao enviar notificação:', error);
+                console.error('❌ Erro na requisição:', error);
                 return false;
             }
         }
         
-        // Função para verificar se deve enviar notificação
+        // Verificar se deve enviar notificação (máximo 1 vez por hora)
         function shouldSendNotification() {
-            // Verificar se já enviou hoje
             const lastNotification = localStorage.getItem('lastTelegramNotification');
             
-            if (!lastNotification) {
-                return true; // Nunca enviou
-            }
+            if (!lastNotification) return true;
             
             const lastTime = parseInt(lastNotification);
             const currentTime = Date.now();
             const hoursPassed = (currentTime - lastTime) / (1000 * 60 * 60);
             
-            // Enviar no máximo uma vez a cada 6 horas
-            return hoursPassed >= 6;
+            return hoursPassed >= 1; // 1 hora
         }
         
-        // Quando a página carrega
-        document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🔧 Inicializando sistema de notificações do Telegram...');
-            
-            // Adicionar botão de teste manual
-            setTimeout(() => {
-                const testBtn = document.createElement('button');
-                testBtn.innerHTML = '🔔 Testar Telegram';
-                testBtn.style.cssText = `
-                    position: fixed;
-                    bottom: 20px;
-                    left: 20px;
-                    z-index: 9999;
-                    background: #0088cc;
-                    color: white;
-                    border: none;
-                    padding: 10px 15px;
-                    border-radius: 20px;
-                    cursor: pointer;
-                    font-weight: bold;
-                    box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
-                `;
-                
-                testBtn.onclick = async function() {
-                    testBtn.disabled = true;
-                    testBtn.innerHTML = '⏳ Enviando...';
-                    
-                    const success = await sendTelegramNotification();
-                    
-                    if (success) {
-                        testBtn.innerHTML = '✅ Enviado!';
-                        testBtn.style.background = '#00c853';
-                    } else {
-                        testBtn.innerHTML = '❌ Erro';
-                        testBtn.style.background = '#f44336';
-                    }
-                    
-                    setTimeout(() => {
-                        testBtn.disabled = false;
-                        testBtn.innerHTML = '🔔 Testar Telegram';
-                        testBtn.style.background = '#0088cc';
-                    }, 3000);
-                };
-                
-                document.body.appendChild(testBtn);
-            }, 2000);
-            
-            // Enviar notificação automática (se permitido)
-            setTimeout(async () => {
-                if (shouldSendNotification()) {
-                    console.log('📤 Enviando notificação automática...');
-                    await sendTelegramNotification();
-                } else {
-                    console.log('⏸️ Notificação recente já enviada. Aguardando...');
-                }
-            }, 5000);
-        });
-        
-        // Notificação quando alguém clica em comprar
-        document.addEventListener('click', function(e) {
-            const buyBtn = e.target.closest('.buy-btn') || e.target.closest('.floating-btn');
-            
-            if (buyBtn && buyBtn.href && buyBtn.href.includes('mundodj.erby.site')) {
-                // Enviar notificação de clique
-                setTimeout(async () => {
-                    const productText = buyBtn.textContent || 'Produto não identificado';
-                    const message = `🛒 *CLIQUE DE COMPRA DETECTADO!*\n\n📦 Produto: ${productText.substring(0, 50)}...\n🔗 Link: ${buyBtn.href}\n⏰ Hora: ${new Date().toLocaleString('pt-BR')}`;
-                    
-                    try {
-                        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                        const params = new URLSearchParams({
-                            chat_id: '8560103571',
-                            text: message,
-                            parse_mode: 'Markdown'
-                        });
-                        
-                        await fetch(url, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: params
-                        });
-                        
-                        console.log('✅ Notificação de clique enviada');
-                    } catch (error) {
-                        console.error('Erro notificação clique:', error);
-                    }
-                }, 1000);
-            }
-        });
-        
-        // TESTE: Verificar se o bot está ativo
-        async function testBot() {
+        // Testar conexão com o bot
+        async function testBotConnection() {
             console.log('🧪 Testando conexão com o bot...');
             
             try {
+                // Testar se o bot existe
                 const testUrl = `https://api.telegram.org/bot${BOT_TOKEN}/getMe`;
                 const response = await fetch(testUrl);
                 const data = await response.json();
                 
                 if (data.ok) {
-                    console.log('✅ Bot está ativo:', data.result);
-                    console.log('🤖 Nome do bot:', data.result.first_name);
+                    console.log('✅ Bot está ativo!');
+                    console.log('🤖 Nome:', data.result.first_name);
                     console.log('👤 Username:', data.result.username);
-                    
-                    // Testar envio simples
-                    const testMessage = `🤖 *BOT TESTE*\n\n✅ Conexão estabelecida com sucesso!\n⏰ ${new Date().toLocaleString('pt-BR')}\n\nO bot está funcionando corretamente!`;
-                    
-                    const sendUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                    const params = new URLSearchParams({
-                        chat_id: '8560103571',
-                        text: testMessage,
-                        parse_mode: 'Markdown'
-                    });
-                    
-                    const sendResponse = await fetch(sendUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: params
-                    });
-                    
-                    const sendData = await sendResponse.json();
-                    
-                    if (sendData.ok) {
-                        console.log('✅ Mensagem de teste enviada com sucesso!');
-                        alert('✅ Teste concluído! Mensagem enviada ao Telegram.');
-                    } else {
-                        console.error('❌ Erro ao enviar mensagem:', sendData);
-                        alert('❌ Erro: ' + (sendData.description || 'Não foi possível enviar'));
-                    }
-                    
+                    return true;
                 } else {
                     console.error('❌ Bot não encontrado ou token inválido');
-                    alert('❌ Token do bot inválido ou bot não encontrado');
+                    return false;
                 }
             } catch (error) {
                 console.error('❌ Erro na conexão:', error);
-                alert('❌ Erro de conexão: ' + error.message);
+                return false;
             }
         }
         
-        // Executar teste quando a página carrega (opcional)
-        setTimeout(testBot, 3000);
+        // Função para descobrir seu chat_id (executar manualmente)
+        async function discoverChatId() {
+            console.log('🔍 Tentando descobrir seu chat_id...');
+            
+            try {
+                // Pegar atualizações do bot
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.ok && data.result.length > 0) {
+                    // Mostrar todos os chat_ids encontrados
+                    console.log('📊 Chat IDs encontrados:');
+                    data.result.forEach((update, index) => {
+                        if (update.message) {
+                            const chatId = update.message.chat.id;
+                            const firstName = update.message.chat.first_name || 'Sem nome';
+                            console.log(`${index + 1}. Chat ID: ${chatId} - Nome: ${firstName}`);
+                        }
+                    });
+                    
+                    // Pegar o último
+                    const lastUpdate = data.result[data.result.length - 1];
+                    if (lastUpdate.message) {
+                        const chatId = lastUpdate.message.chat.id;
+                        console.log('✅ Seu chat_id REAL é:', chatId);
+                        return chatId;
+                    }
+                } else {
+                    console.log('💡 Nenhuma mensagem recebida pelo bot.');
+                    console.log('👉 Envie uma mensagem para seu bot primeiro!');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+            return null;
+        }
         
+        // Quando a página carrega
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Sistema de notificações Telegram iniciado');
+            console.log('🤖 Token do bot:', BOT_TOKEN.substring(0, 10) + '...');
+            console.log('👤 Chat ID configurado:', YOUR_CHAT_ID);
+            
+            // Testar conexão
+            const botActive = await testBotConnection();
+            
+            if (botActive) {
+                console.log('✅ Bot ativo! Testando envio...');
+                
+                // Enviar notificação de visita (se permitido)
+                if (shouldSendNotification()) {
+                    setTimeout(async () => {
+                        console.log('📤 Enviando notificação de visita...');
+                        const sent = await sendTelegramNotification('visita');
+                        
+                        if (sent) {
+                            localStorage.setItem('lastTelegramNotification', Date.now().toString());
+                            console.log('✅ Notificação de visita registrada.');
+                        }
+                    }, 5000);
+                } else {
+                    console.log('⏸️ Notificação recente já enviada. Aguardando...');
+                }
+            }
+        });
+        
+        // Detectar cliques nos botões de compra
+        document.addEventListener('click', function(e) {
+            let buyBtn = null;
+            
+            // Verificar diferentes tipos de botões
+            if (e.target.closest('.buy-btn')) {
+                buyBtn = e.target.closest('.buy-btn');
+            } else if (e.target.closest('.floating-btn')) {
+                buyBtn = e.target.closest('.floating-btn');
+            } else if (e.target.closest('.spin-btn-sorteio')) {
+                buyBtn = e.target.closest('.spin-btn-sorteio');
+            } else if (e.target.closest('.scratch-btn-sorteio')) {
+                buyBtn = e.target.closest('.scratch-btn-sorteio');
+            }
+            
+            if (buyBtn) {
+                const productText = buyBtn.textContent.trim().substring(0, 100);
+                const productHref = buyBtn.href || 'Sem link';
+                
+                console.log('🖱️ Clique detectado:', productText);
+                
+                // Enviar notificação de clique
+                setTimeout(async () => {
+                    await sendTelegramNotification('clique', productText);
+                }, 500);
+            }
+        });
+        
+        // Monitorar ganhadores das roletas
+        window.spinRouletteSorteio = function(id) {
+            // Chamar a função original
+            const originalFunction = window.originalSpinRouletteSorteio;
+            if (originalFunction) {
+                originalFunction(id);
+            }
+            
+            // Notificar quando alguém ganha
+            const roulette = roulettesData.find(r => r.id === id);
+            if (roulette) {
+                setTimeout(async () => {
+                    const state = rouletteStates[id];
+                    if (state && state.hasWon) {
+                        await sendTelegramNotification('roleta', roulette.title);
+                    }
+                }, 6000);
+            }
+        };
+        
+        // Salvar função original
+        window.originalSpinRouletteSorteio = window.spinRouletteSorteio;
+        
+        // Log para debugging
+        console.log('🔧 Sistema de notificação Telegram carregado');
+        console.log('📍 URL atual:', window.location.href);
+        console.log('👤 User Agent:', navigator.userAgent);
+        console.log('⚙️ Para corrigir:');
+        console.log('1. Substitua YOUR_CHAT_ID pelo seu chat_id real');
+        console.log('2. Envie "/start" para seu bot no Telegram');
     </script>
 </body>
 </html>
