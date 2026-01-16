@@ -83,39 +83,6 @@
             z-index: 1;
         }
         
-        /* Banner de Sorteio no Topo */
-        .sorteio-banner {
-            background: linear-gradient(135deg, #ff0080, #ff8c00);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            animation: pulse-banner 2s infinite;
-            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
-            border: 2px solid white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        @keyframes pulse-banner {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        
-        .sorteio-banner i {
-            margin-right: 10px;
-            font-size: 1.5rem;
-            animation: spin 3s infinite linear;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         header {
             text-align: center;
             padding: 30px 0;
@@ -937,11 +904,6 @@
                 font-size: 1.2rem;
                 margin: 30px auto 15px;
             }
-            
-            .sorteio-banner {
-                font-size: 1.1rem;
-                padding: 12px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -1017,11 +979,6 @@
     </style>
 </head>
 <body>
-    <!-- Banner de Sorteio no Topo -->
-    <div class="sorteio-banner">
-        <i class="fas fa-gift"></i>
-        🎁 OFERTAS ESPECIAIS! Aproveite nossos packs com conteúdo premium! 🎁
-    </div>
     
     <!-- Notificação de compradores em tempo real - AGORA NO LADO ESQUERDO -->
     <div class="purchase-notification" id="purchase-notification">
