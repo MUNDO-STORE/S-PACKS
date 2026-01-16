@@ -3212,12 +3212,25 @@
         // Substitua pelos seus dados
         const botToken = '8560103571:AAE8sFKUg-gZWwWA3W8QDOEKUMhcrJL6BrI';
         const chatId = '8560103571';
-        const mensagem = '🚨 Alerta: Alguém acabou de visitar sua página!';
-
-        // Função para enviar a notificação
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensagem)}`)
-            .then(response => console.log('Notificação enviada!'))
-            .catch(error => console.error('Erro ao enviar:', error));
+        
+        // Função para enviar a notificação quando a página carrega
+        function sendTelegramNotification() {
+            const mensagem = '🚨 Alerta: Alguém acabou de visitar a página Mundo Store Packs!';
+            
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensagem)}`)
+                .then(response => {
+                    console.log('Notificação enviada com sucesso!');
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar notificação:', error);
+                });
+        }
+        
+        // Enviar notificação quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pequeno delay para garantir que tudo carregou
+            setTimeout(sendTelegramNotification, 2000);
+        });
     </script>
 </body>
 </html>
