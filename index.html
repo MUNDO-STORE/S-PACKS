@@ -1828,16 +1828,18 @@
                 }
             }
             
-            // Controle dos botões flutuantes (aparece/desaparece a cada 30 segundos)
+            // Controle dos botões flutuantes (10s visíveis, 30s ocultos)
             function toggleFloatingButtons() {
                 if (floatingButtons.classList.contains('hidden')) {
-                    // Se estiver escondido, mostrar
+                    // Se estiver escondido, mostrar por 10 segundos
                     floatingButtons.classList.remove('hidden');
-                    console.log('Botões flutuantes: VISÍVEIS');
-                } else {
-                    // Se estiver visível, esconder
-                    floatingButtons.classList.add('hidden');
-                    console.log('Botões flutuantes: ESCONDIDOS');
+                    console.log('Botões flutuantes: VISÍVEIS (por 10 segundos)');
+                    
+                    // Agendar para esconder após 10 segundos
+                    setTimeout(() => {
+                        floatingButtons.classList.add('hidden');
+                        console.log('Botões flutuantes: ESCONDIDOS (por 30 segundos)');
+                    }, 10000);
                 }
             }
             
@@ -1921,23 +1923,245 @@
                 setTimeout(updateTestimonials, 10000); // Primeira após 10s
                 setInterval(updateTestimonials, 60000); // Depois a cada 60s
                 
-                // Iniciar ciclo dos botões flutuantes (mostra/esconde a cada 30 segundos)
-                // Começa visível, depois de 30s esconde, depois de 30s mostra, e assim por diante
-                setInterval(toggleFloatingButtons, 30000); // Alterna a cada 30 segundos
-                
-                // Inicialmente os botões estão visíveis
+                // Iniciar ciclo dos botões flutuantes
+                // Começa visível por 10s, depois esconde por 30s, repete
                 floatingButtons.classList.remove('hidden');
-                console.log('Botões flutuantes iniciados: VISÍVEIS');
+                console.log('Botões flutuantes iniciados: VISÍVEIS (por 10 segundos)');
                 
-                // Após 30 segundos, esconder pela primeira vez
+                // Após 10 segundos, esconder pela primeira vez
                 setTimeout(() => {
                     floatingButtons.classList.add('hidden');
-                    console.log('Botões flutuantes: Primeiro ciclo - ESCONDIDOS');
-                }, 30000);
+                    console.log('Botões flutuantes: ESCONDIDOS (por 30 segundos)');
+                    
+                    // Iniciar o ciclo: a cada 40 segundos (10s visível + 30s oculto) alternar
+                    setInterval(() => {
+                        toggleFloatingButtons();
+                    }, 40000); // Ciclo completo: 40 segundos
+                }, 10000);
             }
             
             // Inicializar página
             initPage();
+            
+            // =============================================
+            // SISTEMA DE AUTO-TRADUÇÃO PARA VISITANTES FORA DO BRASIL
+            // =============================================
+            
+            async function detectVisitorLocation() {
+                try {
+                    const response = await fetch('https://ipapi.co/json/');
+                    const data = await response.json();
+                    return data.country_code;
+                } catch (error) {
+                    console.log('Não foi possível detectar localização, usando padrão BR');
+                    return 'BR';
+                }
+            }
+            
+            async function autoTranslatePage() {
+                const countryCode = await detectVisitorLocation();
+                
+                // Se não for Brasil, traduzir página
+                if (countryCode !== 'BR' && countryCode !== 'PT') {
+                    console.log(`Visitante de ${countryCode}, traduzindo página para inglês...`);
+                    
+                    // Textos para tradução
+                    const translations = {
+                        // Títulos principais
+                        'Mundo Store Packs': 'World Store Packs',
+                        'Atualize seu pendrive e packs para DJ com conteúdo premium!': 'Update your pendrive and DJ packs with premium content!',
+                        'Nossos packs estão hospedados no <span class="highlight">Telegram</span> (não é Media Fire e nem Google Drive)!': 'Our packs are hosted on <span class="highlight">Telegram</span> (not Media Fire or Google Drive)!',
+                        
+                        // Aviso Telegram
+                        'O <strong>PACK PRO DJ E O PACK PREMIUM É UM DOS PACKS MAIS COMPLETO DO SITE! ESSES PACK TEM TODOS OS PACKS!! ATENÇÃO OS PACK PROFISSIONAL ESTÃO 100% HOSPEDADOS NO TELEGRAM! NÃO É GOOGLE DRIVE OU MEDIA FIRE!</strong>': '<strong>THE PRO DJ PACK AND PREMIUM PACK ARE THE MOST COMPLETE PACKS ON THE SITE! THESE PACKS HAVE ALL PACKS!! ATTENTION: PROFESSIONAL PACKS ARE 100% HOSTED ON TELEGRAM! NOT GOOGLE DRIVE OR MEDIA FIRE!</strong>',
+                        
+                        // Textos de pacotes
+                        'PACK PREMIUM DJ 2026': 'PREMIUM DJ PACK 2026',
+                        'PACK PRO DJ 2026': 'PRO DJ PACK 2026',
+                        'PACK VIP DJ': 'VIP DJ PACK',
+                        'PACK LIGHT DJ': 'LIGHT DJ PACK',
+                        'PACK START R$2,00': 'START PACK R$2.00',
+                        'ATUALIZE SEU PENDRIVE': 'UPDATE YOUR PENDRIVE',
+                        'ELITE FITNESS': 'ELITE FITNESS',
+                        'PACK GOSPEL PRO': 'GOSPEL PRO PACK',
+                        'PACK DJ RETRO': 'DJ RETRO PACK',
+                        'PACK DJ FESTAS PARTICULAR': 'DJ PRIVATE PARTIES PACK',
+                        'PACK MODA DE VIOLA': 'VIOLA MODE PACK',
+                        'MÚSICAS PARA CAMINHONEIRO': 'MUSIC FOR TRUCK DRIVERS',
+                        'SUPER JOGOS RETRO': 'SUPER RETRO GAMES',
+                        'TÉCNICO EM INFORMÁTICA': 'IT TECHNICIAN PACK',
+                        
+                        // Descrições
+                        'Todos os packs do site incluso! Pagamento único sem mensalidades!': 'All site packs included! One-time payment, no monthly fees!',
+                        'Conteúdo premium para DJs! Pagamento único sem mensalidades!': 'Premium content for DJs! One-time payment, no monthly fees!',
+                        'Conteúdo essencial para DJs iniciantes! Pagamento único sem mensalidades!': 'Essential content for beginner DJs! One-time payment, no monthly fees!',
+                        'Mais de 5 mil músicas atualizadas para seu pendrive!': 'Over 5,000 updated songs for your pendrive!',
+                        'Mais de 25 mil músicas atualizadas para seu pendrive!': 'Over 25,000 updated songs for your pendrive!',
+                        'Mais de 35 mil músicas atualizadas para seu pendrive!': 'Over 35,000 updated songs for your pendrive!',
+                        'Músicas específicas para atividades físicas de todos os tipos!': 'Specific songs for all types of physical activities!',
+                        'Pack avaliado para web rádios! Conteúdo gospel profissional.': 'Pack evaluated for web radios! Professional gospel content.',
+                        'Viagem no tempo com as melhores músicas das décadas passadas!': 'Time travel with the best songs from past decades!',
+                        'Músicas para todos os tipos de festas e celebrações!': 'Songs for all types of parties and celebrations!',
+                        'Só modão! Nesse pack não tem sertanejo universitário.': 'Only traditional country music! No university sertanejo in this pack.',
+                        'Só as top para nossos amigos da estrada!': 'Only the best for our road friends!',
+                        'Coleção completa de jogos retrô para todas as plataformas! 100% hospedado no Telegram!': 'Complete collection of retro games for all platforms! 100% hosted on Telegram!',
+                        'Kit completo para técnicos em informática! Na compra ganha Pack Jogos Retro!': 'Complete kit for IT technicians! Get Retro Games Pack with purchase!',
+                        
+                        // Listas de features (traduzir parcialmente)
+                        '+9 Terabytes de músicas': '+9 Terabytes of music',
+                        '+2 Terabytes de efeitos sonoros': '+2 Terabytes of sound effects',
+                        'Repertórios atualizados': 'Updated repertoires',
+                        'Videoclipes e softwares para DJ': 'Music videos and software for DJs',
+                        'Packs para academia': 'Gym packs',
+                        'Pack Gospel Profissional': 'Professional Gospel Pack',
+                        'Pack DJ Retro (Discotecas, Flashback, Eurodance, etc)': 'DJ Retro Pack (Discotheques, Flashback, Eurodance, etc)',
+                        'Pack Funk (Light, Megafunk, Eletrofunk, etc)': 'Funk Pack (Light, Megafunk, Eletrofunk, etc)',
+                        'Pack para festas (Casamento, 15 anos, Formaturas, etc)': 'Party Pack (Wedding, 15 years, Graduations, etc)',
+                        '✅ <strong>100% HOSPEDADO NO TELEGRAM!</strong>': '✅ <strong>100% HOSTED ON TELEGRAM!</strong>',
+                        '✅ <strong>ATUALIZAÇÕES (TUDO QUE CONSEGUIMOS JOGAMOS NOS GRUPO)!</strong>': '✅ <strong>UPDATES (EVERYTHING WE GET, WE ADD TO THE GROUP)!</strong>',
+                        
+                        // Avisos
+                        'Após pagamento recebe os links no seu email!': 'After payment, receive links in your email!',
+                        '⚠️ INFORMAÇÃO IMPORTANTE': '⚠️ IMPORTANT INFORMATION',
+                        'NÃO ESTÁ HOSPEDADO NO TELEGRAM!': 'NOT HOSTED ON TELEGRAM!',
+                        'VOCÊ BAIXA PELA NUVEM (GOOGLE DRIVE E MEDIA FIRE)': 'YOU DOWNLOAD FROM CLOUD (GOOGLE DRIVE AND MEDIA FIRE)',
+                        'MAIS COMPLETO': 'MOST COMPLETE',
+                        'MAIS VENDIDO': 'BEST SELLER',
+                        
+                        // Botões
+                        'CLICK AQUI PARA COMPRAR PACK PREMIUM R$50,00': 'CLICK HERE TO BUY PREMIUM PACK R$50.00',
+                        'COMPRAR AGORA': 'BUY NOW',
+                        'CLICK AQUI PARA COMPRAR PACK START R$2,00!': 'CLICK HERE TO BUY START PACK R$2.00!',
+                        'CLICK AQUI PARA COMPRAR': 'CLICK HERE TO BUY',
+                        'CLICK AQUI PARA COMPRAR KIT TÉCNICO + JOGOS R$35,00!': 'CLICK HERE TO BUY TECHNICIAN KIT + GAMES R$35.00!',
+                        
+                        // Seção de depoimentos
+                        'Depoimentos de Clientes': 'Customer Testimonials',
+                        
+                        // Botões no final
+                        'CLIQUE AQUI PARA ENTRAR NO GRUPO VIP TELEGRAM': 'CLICK HERE TO JOIN VIP TELEGRAM GROUP',
+                        'CLIQUE AQUI PARA ENTRAR NO GRUPO VIP WHATSAPP': 'CLICK HERE TO JOIN VIP WHATSAPP GROUP',
+                        
+                        // Rodapé
+                        'Mundo Store Packs &copy; <span id="current-year">2026</span> - Todos os direitos reservados': 'World Store Packs &copy; <span id="current-year">2026</span> - All rights reserved',
+                        'Conteúdo 100% hospedado no Telegram | Atualizações constantes | Pagamento único sem mensalidades': 'Content 100% hosted on Telegram | Constant updates | One-time payment, no monthly fees',
+                        
+                        // Botões flutuantes
+                        'PACK PREMIUM - R$50': 'PREMIUM PACK - R$50',
+                        'PACK PRO - R$30': 'PRO PACK - R$30',
+                        'PACK VIP - R$15': 'VIP PACK - R$15',
+                        'PACK LIGHT - R$8': 'LIGHT PACK - R$8',
+                        'PACK START - R$2': 'START PACK - R$2',
+                        'PENDRIVE - R$3,99': 'PENDRIVE - R$3.99',
+                        'PENDRIVE 35K - R$5': 'PENDRIVE 35K - R$5',
+                        'JOGOS RETRO - R$10': 'RETRO GAMES - R$10',
+                        'TÉCNICO - R$35': 'TECHNICIAN - R$35',
+                        'VIP HOT - R$10': 'VIP HOT - R$10',
+                        'CASSINO - TESTE A SORTE!': 'CASINO - TRY YOUR LUCK!',
+                        'FITNESS - R$5': 'FITNESS - R$5'
+                    };
+                    
+                    // Adicionar banner de tradução
+                    const translationBanner = document.createElement('div');
+                    translationBanner.style.cssText = `
+                        position: fixed;
+                        top: 10px;
+                        right: 10px;
+                        background: linear-gradient(135deg, #6a11cb, #2575fc);
+                        color: white;
+                        padding: 10px 15px;
+                        border-radius: 10px;
+                        z-index: 9999;
+                        font-size: 0.9rem;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    `;
+                    translationBanner.innerHTML = `
+                        <i class="fas fa-language"></i>
+                        <span>Page translated to English | <a href="#" id="close-translation" style="color: #ffcc00; text-decoration: none;">Close</a></span>
+                    `;
+                    document.body.appendChild(translationBanner);
+                    
+                    // Fechar banner
+                    document.getElementById('close-translation').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        translationBanner.style.display = 'none';
+                    });
+                    
+                    // Aplicar traduções
+                    function translateTextNodes(node) {
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            const originalText = node.textContent.trim();
+                            if (translations[originalText]) {
+                                node.textContent = translations[originalText];
+                            }
+                        } else if (node.nodeType === Node.ELEMENT_NODE) {
+                            // Traduzir placeholder se for input
+                            if (node.placeholder && translations[node.placeholder]) {
+                                node.placeholder = translations[node.placeholder];
+                            }
+                            
+                            // Traduzir alt se for imagem
+                            if (node.alt && translations[node.alt]) {
+                                node.alt = translations[node.alt];
+                            }
+                            
+                            // Traduzir title se tiver
+                            if (node.title && translations[node.title]) {
+                                node.title = translations[node.title];
+                            }
+                            
+                            // Traduzir conteúdo de elementos com data-translate
+                            if (node.hasAttribute('data-translate')) {
+                                const key = node.getAttribute('data-translate');
+                                if (translations[key]) {
+                                    node.innerHTML = translations[key];
+                                }
+                            }
+                            
+                            // Traduzir innerHTML se for span com highlight
+                            if (node.innerHTML && node.innerHTML.includes('<span class="highlight">')) {
+                                const originalHTML = node.innerHTML;
+                                for (const [key, value] of Object.entries(translations)) {
+                                    if (originalHTML.includes(key)) {
+                                        node.innerHTML = originalHTML.replace(key, value);
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Recursivamente processar filhos
+                            Array.from(node.childNodes).forEach(child => {
+                                translateTextNodes(child);
+                            });
+                        }
+                    }
+                    
+                    // Traduzir toda a página
+                    translateTextNodes(document.body);
+                    
+                    // Traduzir elementos específicos que podem ter sido perdidos
+                    document.querySelectorAll('h1, h2, h3, p, span, a, li, button, div').forEach(element => {
+                        if (element.childNodes.length === 1 && element.childNodes[0].nodeType === Node.TEXT_NODE) {
+                            const text = element.textContent.trim();
+                            if (translations[text]) {
+                                element.textContent = translations[text];
+                            }
+                        }
+                    });
+                    
+                    console.log('✅ Página traduzida para inglês');
+                } else {
+                    console.log('Visitante do Brasil, mantendo página em português');
+                }
+            }
+            
+            // Executar auto-tradução após carregamento da página
+            setTimeout(() => {
+                autoTranslatePage();
+            }, 2000);
         });
     </script>
     
